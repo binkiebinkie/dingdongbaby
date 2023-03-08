@@ -4,23 +4,23 @@ import { StyleSheet, View, Text } from "react-native";
 
 import { withTheme } from "react-native-elements";
 
-const CircleBar = ({ theme, numChallengesComplete, numChallenges }) => {
+const CircleBar = ({ theme, numPromptsComplete, numPrompts }) => {
   // const ref = useRef(null);
   const [contWidth, setContWidth] = useState(0);
   const [numCircles, setNumCircles] = useState(45);
   const [gradientWidth, setGradientWidth] = useState(
-    numChallengesComplete && numChallenges ? 4 : 0
+    numPromptsComplete && numPrompts ? 4 : 0
   );
 
   useEffect(() => {
-    // Count percentage width of challenges complete
+    // Count percentage width of prompts complete
     // TODO: Use real number
     // TODO: Animate gradient width
     if (contWidth > 0) {
       const circleWidthAndSpacing = 8;
       setNumCircles(Math.floor(contWidth / circleWidthAndSpacing));
-      if (numChallengesComplete && numChallenges) {
-        const percentComplete = numChallengesComplete / numChallenges;
+      if (numPromptsComplete && numPrompts) {
+        const percentComplete = numPromptsComplete / numPrompts;
         const widthInPx = percentComplete * contWidth;
         setGradientWidth(widthInPx);
       }
@@ -32,7 +32,7 @@ const CircleBar = ({ theme, numChallengesComplete, numChallenges }) => {
       onLayout={e => setContWidth(e.nativeEvent.layout.width)}
       style={styles.circleBarCont(theme)}
     >
-      {numChallengesComplete && numChallenges ? (
+      {numPromptsComplete && numPrompts ? (
         <LinearGradient
           colors={theme.colors.Gradient}
           style={[styles.gradient(theme), { width: gradientWidth }]}

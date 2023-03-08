@@ -8,7 +8,9 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-
+dingdongbaby-35a28c180089.json
+.env
+bin
 
 # macOS
 .DS_Store

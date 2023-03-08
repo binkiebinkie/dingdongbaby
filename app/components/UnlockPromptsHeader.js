@@ -5,15 +5,15 @@ import { withTheme } from "react-native-elements";
 import Locked from "../assets/svgs/Locked";
 import CircleBar from "./CircleBar";
 
-function UnlockChallengesHeader({ navigation, theme }) {
-  const navigateToChallenge = () => {
-    console.log("navigate to challenge", navigation);
+function UnlockPromptsHeader({ navigation, theme }) {
+  const navigateToPrompt = () => {
+    console.log("navigate to prompt", navigation);
   };
 
   return (
     <View style={styles.cont(theme)}>
-      <View style={styles.challengesCont(theme)}>
-        <Text style={styles.challengesFont(theme)}>complete to unlock</Text>
+      <View style={styles.promptsCont(theme)}>
+        <Text style={styles.promptsFont(theme)}>complete to unlock</Text>
         <Locked />
       </View>
       <CircleBar />
@@ -23,7 +23,7 @@ function UnlockChallengesHeader({ navigation, theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  challengesCont: theme => ({
+  promptsCont: theme => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start"
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     marginTop: 38,
     marginBottom: 12
   }),
-  challengesFont: theme => ({
+  promptsFont: theme => ({
     fontSize: 18,
     fontFamily: "SFCompactRoundedBold",
     textTransform: "lowercase",
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   })
 });
 
-export default withTheme(UnlockChallengesHeader);
+export default withTheme(UnlockPromptsHeader);

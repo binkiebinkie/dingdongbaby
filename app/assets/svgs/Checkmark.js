@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
-export default SvgComponent = (props, { stroke }) => (
+const SvgComponent = (props, { stroke }) => (
   <Svg
     width="10"
     height="9"
@@ -19,3 +19,4 @@ export default SvgComponent = (props, { stroke }) => (
     />
   </Svg>
 );
+export default SvgComponent;

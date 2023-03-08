@@ -1,13 +1,14 @@
-import AsyncStorage from "@react-native-community/async-storage";
-const STORAGE_KEY = "@ddb-user";
-const STORAGE_KEY_APP = "@ddb-app";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const STORAGE_KEY_USER = "@ddb_user";
+const STORAGE_KEY_APP = "@ddb_app";
+
 export const storeUserData = async userState => {
   try {
     if (userState && Object.keys(userState).length) {
-      const jsonAppState = JSON.stringify(userState);
-      console.log("storeUserData ");
+      const jsonUserState = JSON.stringify(userState);
+      console.log("storeUserData ", jsonUserState);
 
-      await AsyncStorage.setItem(STORAGE_KEY, jsonAppState).catch(err =>
+      await AsyncStorage.setItem(STORAGE_KEY_USER, jsonUserState).catch(err =>
         console.log(err)
       );
     }
@@ -18,10 +19,10 @@ export const storeUserData = async userState => {
 
 export const getUserData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY).catch(err =>
+    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY_USER).catch(err =>
       console.log(err)
     );
-    console.log("getUserData jsonValue");
+    console.log("getUserData jsonValue", jsonValue);
     return jsonValue !== null ? JSON.parse(jsonValue) : {};
   } catch (e) {
     console.log("DANGIT! There was an error getting data: ", e);

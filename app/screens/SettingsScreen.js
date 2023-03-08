@@ -26,7 +26,7 @@ function SettingsScreen({ route, theme }) {
         ))}
       </View>
       <View style={styles.gradientButtonContainer}>
-        <GradientButton copy="upload a challenge idea" />
+        <GradientButton copy="upload a prompt idea" />
       </View>
       <View style={styles.ethGradCont}>
         <Text style={styles.ethGrad(theme)}>by ethics gradient</Text>

@@ -16,13 +16,13 @@ import { helpers } from "../helpers/helpers";
 
 //rsf
 function CaptionsScreen({ navigation, theme }) {
-  const { updateCompletedChallenge } = useContext(UserContext);
-  const { selectedChallenge, app } = useContext(AppContext);
+  const { updateCompletedPrompt } = useContext(UserContext);
+  const { selectedPrompt, app } = useContext(AppContext);
   const [selectedCaption, setSelectedCaption] = useState(null);
   const [customText, setCustomText] = useState("");
-  const { challenges } = app;
-  const challenge = challenges.find(chal => chal.id === selectedChallenge);
-  const { id, captions } = challenge;
+  const { prompts } = app;
+  const prompt = prompts.find(chal => chal.id === selectedPrompt);
+  const { id, captions } = prompt;
 
   useEffect(() => {
     if (selectedCaption !== null) {
@@ -30,9 +30,9 @@ function CaptionsScreen({ navigation, theme }) {
     }
   }, [selectedCaption]);
 
-  const navigateToChallenge = () => {
-    updateCompletedChallenge(customText, "caption", id);
-    navigation.navigate("Challenge");
+  const navigateToPrompt = () => {
+    updateCompletedPrompt("caption", customText, id);
+    navigation.navigate("Prompt");
   };
 
   return (
@@ -40,7 +40,7 @@ function CaptionsScreen({ navigation, theme }) {
       <View style={styles.cont}>
         <HeaderCloseBar
           copy={`${helpers.numberToThreeDigits(id)} - set caption`}
-          navigateTo="Challenge"
+          navigateTo="Prompt"
         />
         <View style={styles.contentContainer}>
           {captions.map((caption, i) => (
@@ -74,7 +74,7 @@ function CaptionsScreen({ navigation, theme }) {
         </View>
         <View style={styles.buttonCont}>
           {customText && customText.length > 0 ? (
-            <GradientButton copy="set caption" onPress={navigateToChallenge} />
+            <GradientButton copy="set caption" onPress={navigateToPrompt} />
           ) : (
             []
           )}

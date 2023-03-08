@@ -10,11 +10,11 @@ import BeigeButton from "./styleComponents/BeigeButton";
 function PhotoUploadButton({
   theme,
   image,
-  selectedChallenge,
+  selectedPrompt,
   captions,
   navigation
 }) {
-  const { user, setPhotoForHomeChallenge } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const pickImage = async () => {
     () => {
@@ -43,23 +43,22 @@ function PhotoUploadButton({
       const newUser = JSON.parse(JSON.stringify(user));
       console.log("HEREE", newUser);
 
-      const thisImageIndex = newUser.completedChallenges.indexOf(
-        challenge => challenge.challengeId === selectedChallenge
+      const thisImageIndex = newUser.completedPrompts.indexOf(
+        prompt => prompt.promptId === selectedPrompt
       );
       // let newData = {};
       if (thisImageIndex >= 0) {
-        newUser.completedChallenges[thisImageIndex].path = result.uri;
-        newUser.completedChallenges[
+        newUser.completedPrompts[thisImageIndex].path = result.uri;
+        newUser.completedPrompts[
           thisImageIndex
         ].dateUploaded = moment().format();
-        newUser.completedChallenges[thisImageIndex].width = result.width;
-        newUser.completedChallenges[thisImageIndex].height = result.height;
-        setPhotoForHomeChallenge(newUser);
-        // newData = newUser.completedChallenges[thisImageIndex];
+        newUser.completedPrompts[thisImageIndex].width = result.width;
+        newUser.completedPrompts[thisImageIndex].height = result.height;
+        // newData = newUser.completedPrompts[thisImageIndex];
       } else {
-        newUser.completedChallenges.push({
-          id: newUser.completedChallenges.length,
-          challengeId: selectedChallenge,
+        newUser.completedPrompts.push({
+          id: newUser.completedPrompts.length,
+          promptId: selectedPrompt,
           path: result.uri,
           dateUploaded: moment().format("MMM DD YYYY"),
           height: result.height,
@@ -67,19 +66,18 @@ function PhotoUploadButton({
           caption: captions[0]
         });
         // newData =
-        //   newUser.completedChallenges[newUser.completedChallenges.length - 1];
-        setPhotoForHomeChallenge(newUser);
+        //   newUser.completedPrompts[newUser.completedPrompts.length - 1];
         navigation.navigate("Captions");
       }
 
       // TODO: Edit user on server
       // await storageHelpers
-      //   .postAddCompletedChallenge(newData)
+      //   .postAddCompletedPrompt(newData)
       //   .then(resp => {
-      //     console.log("postAddCompletedChallenge ", resp);
+      //     console.log("postAddCompletedPrompt ", resp);
       //     return setUser(newUser);
       //   })
-      //   .catch(err => console.log("err postAddCompletedChallenge ", err));
+      //   .catch(err => console.log("err postAddCompletedPrompt ", err));
     }
   };
 

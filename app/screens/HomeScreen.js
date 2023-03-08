@@ -8,28 +8,37 @@ import {
 } from "react-native";
 import { withTheme } from "react-native-elements";
 import AppBackground from "../components/AppBackground";
-import ChallengesContainer from "../components/ChallengesContainer";
-import UnlockChallengesContainer from "../components/UnlockChallengesContainer";
+import PromptsContainer from "../components/PromptsContainer";
+import UnlockPromptsContainer from "../components/UnlockPromptsContainer";
 import HomeHeader from "../components/HomeHeader";
 import HomeSettingsContainer from "../components/HomeSettingsContainer";
 import Spacer from "../components/styleComponents/Spacer";
 import AlbumContainer from "../components/AlbumContainer";
 import AppContext from "../state/AppContext";
+import usePrompts from "../hooks/prompts";
+import UserContext from "../state/UserContext";
 
 // TODO: compress bg img further
 // rsf
 const HomeScreen = ({ navigation, theme }) => {
   const { selectedHomeScreen } = useContext(AppContext);
+  const { userState } = useContext(UserContext);
+  const { unlockedPrompts, allPromptsCount } = usePrompts();
+  console.log(userState);
   return (
     <AppBackground hasNavigationButtons={true}>
       <View>
         <HomeSettingsContainer navigation={navigation} />
-        <HomeHeader copy={selectedHomeScreen} />
-        <Spacer width={"100%"} height={24} />
-        {selectedHomeScreen === "challenges" ? (
+        <HomeHeader
+          copy={selectedHomeScreen}
+          allPromptsCount={allPromptsCount}
+          unlockedCount={unlockedPrompts.length}
+        />
+        <Spacer width="100%" height={24} />
+        {selectedHomeScreen === "prompts" ? (
           <View style={styles.darkContainer(theme)}>
-            <ChallengesContainer />
-            <UnlockChallengesContainer />
+            <PromptsContainer />
+            <UnlockPromptsContainer />
           </View>
         ) : (
           <AlbumContainer />

@@ -3,10 +3,10 @@ import { StyleSheet, View, Text } from "react-native";
 
 import { withTheme } from "react-native-elements";
 
-function DailyChallengeContainer({ theme }) {
+function DailyPromptContainer({ theme }) {
   return (
     <View style={styles.container(theme)}>
-      <Text>Daily Challenge Container</Text>
+      <Text>Daily Prompt Container</Text>
     </View>
   );
 }
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
   top: theme => ({})
 });
 
-export default withTheme(DailyChallengeContainer);
+export default withTheme(DailyPromptContainer);

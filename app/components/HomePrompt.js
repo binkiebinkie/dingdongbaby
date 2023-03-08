@@ -2,24 +2,24 @@ import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AppContext from "../state/AppContext";
-import ChallengeDetails from "./ChallengeDetails";
+import PromptDetails from "./PromptDetails";
 
 import { withTheme } from "react-native-elements";
 
-function HomeChallenge({ theme, challenge, locked }) {
-  const { setSelectedChallenge } = useContext(AppContext);
+function HomePrompt({ theme, prompt, locked }) {
+  const { setSelectedPrompt } = useContext(AppContext);
   const navigation = useNavigation();
 
-  const navigateToChallenge = () => {
-    setSelectedChallenge(challenge.id);
-    return navigation.navigate("Challenge");
+  const navigateToPrompt = () => {
+    setSelectedPrompt(prompt.id);
+    return navigation.navigate("Prompt");
   };
 
   // TODO: refactor color of difficulty
   return (
-    <Pressable onPress={() => (locked ? null : navigateToChallenge())}>
+    <Pressable onPress={() => (locked ? null : navigateToPrompt())}>
       <View style={styles.container(theme)}>
-        <ChallengeDetails challenge={challenge} homeChallenge={true} />
+        <PromptDetails prompt={prompt} homePrompt={true} />
       </View>
     </Pressable>
   );
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   })
 });
 
-export default withTheme(HomeChallenge);
+export default withTheme(HomePrompt);

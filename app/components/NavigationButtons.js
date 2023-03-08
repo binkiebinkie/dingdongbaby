@@ -15,21 +15,21 @@ function NavigationButtons({ theme }) {
     <View style={styles.cont(theme)}>
       <TouchableOpacity
         style={styles.button(theme)}
-        onPress={() => setSelectedHomeScreen("challenges")}
+        onPress={() => setSelectedHomeScreen("prompts")}
       >
-        {selectedHomeScreen === "challenges" ? <CameraFilled /> : <Camera />}
+        {selectedHomeScreen === "prompts" ? <CameraFilled /> : <Camera />}
         <Text
           style={[
-            styles.challengesFont(theme),
+            styles.promptsFont(theme),
             {
               color:
-                selectedHomeScreen === "challenges"
+                selectedHomeScreen === "prompts"
                   ? theme.colors.G7
                   : theme.colors.G6
             }
           ]}
         >
-          challenges
+          prompts
         </Text>
       </TouchableOpacity>
       <Spacer width={4} height={1} />
@@ -40,7 +40,7 @@ function NavigationButtons({ theme }) {
         {selectedHomeScreen === "album" ? <AlbumFilled /> : <Album />}
         <Text
           style={[
-            styles.challengesFont(theme),
+            styles.promptsFont(theme),
             {
               color:
                 selectedHomeScreen === "album"
@@ -58,7 +58,7 @@ function NavigationButtons({ theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  challengesFont: theme => ({
+  promptsFont: theme => ({
     fontSize: 12,
     fontFamily: "SFCompactRoundedBold",
     textTransform: "lowercase",

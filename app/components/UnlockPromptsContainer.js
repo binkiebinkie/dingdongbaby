@@ -2,24 +2,21 @@ import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { withTheme } from "react-native-elements";
 import AppContext from "../state/AppContext";
-import HomeChallenge from "./HomeChallenge";
+import HomePrompt from "./HomePrompt";
 import UpsellContainer from "./UpsellContainer";
-import UnlockChallengesHeader from "./UnlockChallengesHeader";
+import UnlockPromptsHeader from "./UnlockPromptsHeader";
+import usePrompts from "../hooks/prompts";
 
-function UnlockChallengesContainer({ theme }) {
-  const { app } = useContext(AppContext);
+function UnlockPromptsContainer({ theme }) {
+  const { lockedPrompts } = usePrompts();
+
   return (
     <View style={styles.container(theme)}>
-      <UnlockChallengesHeader />
+      <UnlockPromptsHeader />
       <UpsellContainer />
-
-      <View style={styles.challengesScroll(theme)}>
-        {app.lockedChallenges.map(challenge => (
-          <HomeChallenge
-            key={challenge.id}
-            challenge={challenge}
-            locked={true}
-          />
+      <View style={styles.promptsScroll(theme)}>
+        {lockedPrompts.map(prompt => (
+          <HomePrompt key={prompt.id} prompt={prompt} locked={true} />
         ))}
       </View>
     </View>
@@ -30,13 +27,13 @@ function UnlockChallengesContainer({ theme }) {
 const styles = StyleSheet.create({
   container: theme => ({
     position: "relative",
-    flex: 1
+    height: "auto"
   }),
-  challengesScroll: theme => ({
+  promptsScroll: theme => ({
     width: "100%",
     flex: 1,
     flexDirection: "column"
   })
 });
 
-export default withTheme(UnlockChallengesContainer);
+export default withTheme(UnlockPromptsContainer);

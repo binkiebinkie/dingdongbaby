@@ -8,67 +8,69 @@ import { helpers } from "../helpers/helpers";
 
 import { withTheme } from "react-native-elements";
 
-const ChallengeDetails = ({
+const PromptDetails = ({
   theme,
-  homeChallenge,
-  challenge: { name, id, difficulty, emoji, photo }
-}) => (
-  <Fragment key={`${name}${id}`}>
-    <View style={styles.containerLeft(theme)}>
-      <Text style={styles.name(theme)}>{name}</Text>
-      <View style={styles.containerLeftDetails(theme)}>
-        <View style={styles.favContainer(theme)}>
-          <Text style={styles.idText(theme)}>
-            {helpers.numberToThreeDigits(id)}
-          </Text>
-          <View style={styles.fav(theme)}>
-            <Star color={theme.colors.G2} />
+  homePrompt,
+  prompt: { name, id, difficulty, emoji, photo, key }
+}) => {
+  return (
+    <Fragment key={`${name}${id}`}>
+      <View style={styles.containerLeft(theme)}>
+        <Text style={styles.name(theme)}>{name}</Text>
+        <View style={styles.containerLeftDetails(theme)}>
+          <View style={styles.favContainer(theme)}>
+            <Text style={styles.idText(theme)}>
+              {helpers.numberToThreeDigits(id)}
+            </Text>
+            <View style={styles.fav(theme)}>
+              <Star color={theme.colors.G2} />
+            </View>
+          </View>
+          <View
+            style={[
+              styles.difficultyContainer(theme),
+              difficulty === 1
+                ? styles.difficulty1(theme)
+                : difficulty === 2
+                ? styles.difficulty2(theme)
+                : styles.difficulty3(theme)
+            ]}
+          >
+            {[...Array(difficulty)].map((e, i) => (
+              <Fragment key={`${i}${i}${e}`}>
+                <View
+                  key={i}
+                  style={[
+                    styles.difficultyCircle(theme),
+                    difficulty === 1
+                      ? styles.difficultyCircle1(theme)
+                      : difficulty === 2
+                      ? styles.difficultyCircle2(theme)
+                      : styles.difficultyCircle3(theme)
+                  ]}
+                />
+                {i === difficulty - 1 ? null : (
+                  <Spacer key={`spacer${i}`} width={4} height={"100%"} />
+                )}
+              </Fragment>
+            ))}
           </View>
         </View>
-        <View
-          style={[
-            styles.difficultyContainer(theme),
-            difficulty === 1
-              ? styles.difficulty1(theme)
-              : difficulty === 2
-              ? styles.difficulty2(theme)
-              : styles.difficulty3(theme)
-          ]}
-        >
-          {[...Array(difficulty)].map((e, i) => (
-            <Fragment key={`${i}${i}${e}`}>
-              <View
-                key={i}
-                style={[
-                  styles.difficultyCircle(theme),
-                  difficulty === 1
-                    ? styles.difficultyCircle1(theme)
-                    : difficulty === 2
-                    ? styles.difficultyCircle2(theme)
-                    : styles.difficultyCircle3(theme)
-                ]}
-              />
-              {i === difficulty - 1 ? null : (
-                <Spacer key={`spacer${i}`} width={4} height={"100%"} />
-              )}
-            </Fragment>
-          ))}
-        </View>
       </View>
-    </View>
-    <View style={styles.containerRight(theme)}>
-      {homeChallenge && photo ? (
-        <Image
-          resizeMode={"cover"}
-          source={{ uri: photo }}
-          style={styles.photo}
-        />
-      ) : (
-        <Text style={styles.emoji}>{emoji}</Text>
-      )}
-    </View>
-  </Fragment>
-);
+      <View style={styles.containerRight(theme)}>
+        {homePrompt && photo ? (
+          <Image
+            resizeMode={"cover"}
+            source={{ uri: photo }}
+            style={styles.photo}
+          />
+        ) : (
+          <Text style={styles.emoji}>{emoji}</Text>
+        )}
+      </View>
+    </Fragment>
+  );
+};
 
 //rnss
 const styles = StyleSheet.create({
@@ -159,4 +161,4 @@ const styles = StyleSheet.create({
   top: theme => ({})
 });
 
-export default withTheme(ChallengeDetails);
+export default withTheme(PromptDetails);

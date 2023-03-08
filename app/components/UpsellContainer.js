@@ -6,25 +6,32 @@ import CircleBar from "./CircleBar";
 
 import { withTheme } from "react-native-elements";
 import { helpers } from "../helpers/helpers";
+import useTranslation from "../hooks/translations";
 
-function UpsellContainer({ theme, challenge }) {
+function UpsellContainer({ theme, prompt }) {
   const { app } = useContext(AppContext);
+  const { t } = useTranslation();
   // const navigation = useNavigation();
 
-  // const navigateToChallenge = () => {
-  //   console.log("navigate to challenge", navigation);
-  //   setSelectedChallenge(challenge.id);
-  //   return navigation.navigate("Challenge");
+  // const navigateToPrompt = () => {
+  //   console.log("navigate to prompt", navigation);
+  //   setSelectedPrompt(prompt.id);
+  //   return navigation.navigate("Prompt");
   // };
 
   // TODO: refactor color of difficulty
   return (
     <View style={styles.cont(theme)}>
-      <GradientButton copy="unlock challenges" />
+      <GradientButton copy="unlock prompts" />
       <View style={styles.spacer}></View>
       <CircleBar />
       <Text style={styles.comment(theme)}>
-        {helpers.randomFromArray(app.salesCopy)}
+        {t([
+          "settings/cta--hint1",
+          "settings/cta--hint2",
+          "settings/cta--hint3",
+          "settings/cta--hint4"
+        ])}
       </Text>
     </View>
   );

@@ -35,31 +35,25 @@ export const allSettings = [
 ];
 
 export const initialUser = {
-  _id: "",
+  id: "",
   dateSignedUp: moment(),
-  hasViewedIntro: false,
   email: "",
   password: "",
   credits: 0,
   lastUpdated: moment(),
-  completedChallenges: [], //array of photos
+  completedPrompts: [], // array of photo ids
+  unlockedPrompts: [], // array of photo ids
+  sharingLinks: [],
   name: "",
   gender: "",
-  babyName: "",
-  babyYearOfBirth: null,
-  babyMonthOfBirth: null,
-  babyDayOfBirth: null,
-  babyGender: "",
-  partnerName: "",
-  partnerGender: "",
-  sharingLinks: []
+  babies: [{ name: "", gender: "", dob: "" }]
 };
 
 export const initialApp = {
   lastUpdated: moment(),
-  selectedChallenge: null,
-  setSelectedChallenge: () => {},
-  challenges: [
+  selectedPrompt: null,
+  setSelectedPrompt: () => {},
+  prompts: [
     {
       id: 1,
       name: `Bring me my mount`,
@@ -122,7 +116,7 @@ export const initialApp = {
       difficulty: 2
     }
   ],
-  lockedChallenges: [
+  lockedPrompts: [
     {
       id: 6,
       name: "Are you okay?",
@@ -141,17 +135,5 @@ export const initialApp = {
       emoji: "👀",
       difficulty: 2
     }
-  ],
-  introCopy: [
-    "make hilarious memories future you will thank you for",
-    "hundreds of fun and hilarious photo and activity ideas you couldn't come up with yourself",
-    "test"
-  ], // is this necessary for storage ...?
-  salesCopy: [
-    "hint - you should definitely not do it, your kid will look back and wonder what was wrong with you",
-    "your kid won't be cute forever",
-    "baby will hate when you show these on their wedding day",
-    "you got a baby, we got funny stuff to do with it",
-    "don't you want more likes on instagram?"
   ]
 };

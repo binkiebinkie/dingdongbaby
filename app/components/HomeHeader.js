@@ -5,29 +5,33 @@ import { withTheme } from "react-native-elements";
 import Checkmark from "../assets/svgs/Checkmark";
 import CircleBar from "./CircleBar";
 
-function HomeHeader({ navigation, theme, copy }) {
-  const navigateToChallenge = () => {
-    console.log("navigate to challenge", navigation);
+function HomeHeader({
+  navigation,
+  theme,
+  copy,
+  allPromptsCount,
+  unlockedCount
+}) {
+  const navigateToPrompt = () => {
+    console.log("navigate to prompt", navigation);
   };
-  const numChallengesComplete = 125;
-  const numChallenges = 200;
 
   return (
     <View style={styles.cont(theme)}>
-      <View style={styles.challengesCont(theme)}>
-        <Text style={styles.challengesFont(theme)}>{copy}</Text>
+      <View style={styles.promptsCont(theme)}>
+        <Text style={styles.promptsFont(theme)}>{copy}</Text>
         <View style={styles.totalCont(theme)}>
           <View style={styles.checkCont(theme)}>
             <Checkmark stroke={theme.colors.G6} />
           </View>
           <Text style={styles.checkCount(theme)}>
-            {numChallengesComplete}/{numChallenges}
+            {unlockedCount}/{allPromptsCount}
           </Text>
         </View>
       </View>
       <CircleBar
-        numChallengesComplete={numChallengesComplete}
-        numChallenges={numChallenges}
+        numPromptsComplete={unlockedCount}
+        numPrompts={allPromptsCount}
       />
     </View>
   );
@@ -35,7 +39,7 @@ function HomeHeader({ navigation, theme, copy }) {
 
 //rnss
 const styles = StyleSheet.create({
-  challengesCont: theme => ({
+  promptsCont: theme => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
@@ -45,7 +49,7 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16
   }),
-  challengesFont: theme => ({
+  promptsFont: theme => ({
     fontSize: 32,
     letterSpacing: 0.374,
     lineHeight: 42,

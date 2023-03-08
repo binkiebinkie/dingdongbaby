@@ -1,7 +1,6 @@
 import * as React from "react";
 import Svg, { Path, Mask, Rect } from "react-native-svg";
-
-export default SvgComponent = (props, { stroke }) => (
+const SvgComponent = (props, { stroke }) => (
   <Svg
     width="24"
     height="24"
@@ -12,8 +11,8 @@ export default SvgComponent = (props, { stroke }) => (
   >
     <Mask id="path-1-inside-1" fill="white">
       <Path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M15.046 12.9654C16.2342 12.0513 17 10.6151 17 9C17 6.23858 14.7614 4 12 4C9.23858 4 7 6.23858 7 9C7 10.6151 7.76577 12.0513 8.95405 12.9654L7.70425 17.4647C7.35025 18.7391 8.30864 20 9.63128 20H14.3687C15.6914 20 16.6498 18.7391 16.2958 17.4647L15.046 12.9654Z"
       />
     </Mask>
@@ -29,7 +28,8 @@ export default SvgComponent = (props, { stroke }) => (
       height="22"
       rx="7"
       stroke="#847F73"
-      stroke-width="2"
+      strokeWidth="2"
     />
   </Svg>
 );
+export default SvgComponent;

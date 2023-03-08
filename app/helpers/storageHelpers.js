@@ -12,7 +12,7 @@ export default {
         if (
           data &&
           data.lastUpdated &&
-          moment(data.lastUpdated).isBefore(cacheData.lastUpdated)
+          moment(data.lastUpdated).isBefore(cacheData?.lastUpdated)
         ) {
           // server is newer, return this data
           return data;
@@ -31,11 +31,11 @@ export default {
       .then(res => res.text())
       .then(ip => ip),
 
-  postAddCompletedChallenge: async challenge =>
+  postAddCompletedPrompt: async prompt =>
     await axios
-      .post("/user/add-completed-challenge", { challenge })
+      .post("/user/add-completed-prompt", { prompt })
       .then(resp => resp.data)
-      .catch(err => console.log("postAddCompletedChallenge err", err)),
+      .catch(err => console.log("postAddCompletedPrompt err", err)),
 
   setInitialUser: initialUser,
 

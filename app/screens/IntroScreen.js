@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet, View, SafeAreaView, Text, Button } from "react-native";
 import { withTheme } from "react-native-elements";
 import moment from "moment";
+import { getUniqueId } from "react-native-device-info";
 
 import PhotoCard from "../components/PhotoCard";
 import AppBackground from "../components/AppBackground";
@@ -13,23 +14,34 @@ import monk2 from "../assets/placeholders/monk2.png";
 import monk3 from "../assets/placeholders/monk3.png";
 import monk4 from "../assets/placeholders/monk4.png";
 import UserContext from "../state/UserContext";
-
+import useTranslation from "../hooks/translations";
+import usePrompts from "../hooks/prompts";
 //rsf
 function IntroScreen({ navigation, route, theme }) {
-  const { updateUser } = useContext(UserContext);
-  const navigateHome = () => {
-    updateUser(true, "hasViewedIntro");
+  const { t } = useTranslation();
+  const { userState } = useContext(UserContext);
+  console.log(userState);
+  const { addRandomPrompt } = usePrompts();
+  const navigateHome = async () => {
+    // console.log("yolo", yolo);
+    // updateUser(true, "hasViewedIntro");
+    if (userState?.unlockedPrompts?.length === 0) {
+      addRandomPrompt(1);
+      addRandomPrompt(2);
+      addRandomPrompt(3);
+    }
+
     return navigation.navigate("Home");
   };
 
   return (
     <AppBackground>
       <View style={styles.background}>
-        <Text>dingdong baby</Text>
+        <Text>{t("dingdong baby")}</Text>
         <Spacer width="100%" height={24} />
         <TextPureBlack24
           addStyles={{ textAlign: "center" }}
-          copy="hundreds of fun and hilarious photo ideas for you and your baby"
+          copy={t("intro/title--1")}
         />
         <Spacer width="100%" height={12} />
         <PhotoCard
@@ -42,7 +54,7 @@ function IntroScreen({ navigation, route, theme }) {
         <Spacer width="100%" height={12} />
         <TextPureBlack24
           addStyles={{ textAlign: "center" }}
-          copy="when your kid grows up they will wonder what was wrong with you"
+          copy={t("intro/title--2")}
         />
         <Spacer width="100%" height={12} />
         <PhotoCard
@@ -55,7 +67,7 @@ function IntroScreen({ navigation, route, theme }) {
         <Spacer width="100%" height={12} />
         <TextPureBlack24
           addStyles={{ textAlign: "center" }}
-          copy="dingdong baby is the worlds #1 parent/child contact sport"
+          copy={t("intro/title--3")}
         />
         <Spacer width="100%" height={12} />
         <PhotoCard
@@ -66,9 +78,10 @@ function IntroScreen({ navigation, route, theme }) {
           date={moment().format("MMM DD YYYY")}
         />
         <Spacer width="100%" height={12} />
+
         <TextPureBlack24
           addStyles={{ textAlign: "center" }}
-          copy="'finally, a use for my baby'"
+          copy={t("intro/title--4")}
         />
         <Spacer width="100%" height={12} />
         <PhotoCard
@@ -79,14 +92,7 @@ function IntroScreen({ navigation, route, theme }) {
           date={moment().format("MMM DD YYYY")}
         />
         <Spacer width="100%" height={24} />
-        {/* <Button
-          onPress={() => navigation.navigate("Home")}
-          title="capture memories eternal"
-        /> */}
-        <GradientButton
-          copy="capture memories eternal"
-          onPress={navigateHome}
-        />
+        <GradientButton copy={t("intro/cta-button")} onPress={navigateHome} />
       </View>
     </AppBackground>
   );

@@ -9,17 +9,17 @@ import moment from "moment";
 function AlbumContainer({ theme }) {
   const { user } = useContext(UserContext);
   const { app } = useContext(AppContext);
-  const { completedChallenges } = user;
-  const { challenges } = app;
+  const { completedPrompts } = user;
+  const { prompts } = app;
   console.log(
-    "completedChallengescompletedChallengescompletedChallenges",
-    completedChallenges
+    "completedPromptscompletedPromptscompletedPrompts",
+    completedPrompts
   );
 
   return (
     <View style={styles.container(theme)}>
-      <View style={styles.challengesScroll(theme)}>
-        {completedChallenges.map(chal => (
+      <View style={styles.promptsScroll(theme)}>
+        {completedPrompts.map(chal => (
           <PhotoCard
             key={chal.id}
             image={chal.path}
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1
   }),
-  challengesScroll: theme => ({
+  promptsScroll: theme => ({
     width: "100%",
     flex: 1,
     flexDirection: "column"

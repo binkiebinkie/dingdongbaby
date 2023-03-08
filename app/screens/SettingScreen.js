@@ -9,8 +9,9 @@ import HeaderCloseBar from "../components/HeaderCloseBar";
 //rsf
 const SettingScreen = ({ route, theme, navigation }) => {
   const { selectedSetting } = useContext(SettingsContext);
-  const { user, updateUser } = useContext(UserContext);
+  const { user, updateUserKeyValue } = useContext(UserContext);
   const { inputs } = selectedSetting;
+  console.log(selectedSetting);
   const renderInput = input => {
     const { type, name } = input;
     if (type === "text") {
@@ -21,7 +22,7 @@ const SettingScreen = ({ route, theme, navigation }) => {
           style={styles.textInput(theme)}
           key={name}
           name={name}
-          onChange={e => updateUser(e.nativeEvent.text, name)}
+          onChange={e => updateUserKeyValue(name, e.nativeEvent.text)}
           value={user[name]}
           keyboardType={keyboardType}
         />

@@ -8,7 +8,7 @@ import AppBackground from "../components/AppBackground";
 import Alert from "../assets/svgs/Alert";
 import Tip from "../assets/svgs/Tip";
 import ChevronLeft from "../assets/svgs/ChevronLeft";
-import ChallengeDetails from "../components/ChallengeDetails";
+import PromptDetails from "../components/PromptDetails";
 import PhotoCard from "../components/PhotoCard";
 import PhotoUploadButton from "../components/PhotoUploadButton";
 import Spacer from "../components/styleComponents/Spacer";
@@ -16,29 +16,25 @@ import { LinearGradient } from "expo-linear-gradient";
 import HeaderCloseBar from "../components/HeaderCloseBar";
 import Camera from "../assets/svgs/Camera";
 import { helpers } from "../helpers/helpers";
+import usePrompts from "../hooks/prompts";
 
 //rsf
-function ChallengeScreen({ navigation, theme }) {
+function PromptScreen({ navigation, theme }) {
   const { user } = useContext(UserContext);
-  const { selectedChallenge, setSelectedChallenge, app } = useContext(
-    AppContext
-  );
-  console.log("selectedChallengeselectedChallenge", selectedChallenge);
-  const { challenges } = app;
+  const { selectedPrompt, setSelectedPrompt, app } = useContext(AppContext);
+  const { unlockedPrompts } = usePrompts();
 
-  const image = user.completedChallenges.find(
-    obj => obj.challengeId === selectedChallenge
+  const image = user.completedPrompts.find(
+    obj => obj.promptId === selectedPrompt
   );
-  const challenge = challenges.find(chal => chal.id === selectedChallenge);
-  const { desc, warning, tip, id, captions } = challenge;
-  const challengeIndex = challenges.findIndex(
-    chal => chal.id === selectedChallenge
-  );
+  const prompt = unlockedPrompts.find(p => p.id === selectedPrompt);
+  const { desc, warning, tip, id, captions } = prompt;
+  const promptIndex = unlockedPrompts.findIndex(p => p.id === selectedPrompt);
 
-  const navigateToChallenge = indexChange => {
-    const otherChallenge = challenges[challengeIndex + indexChange];
-    if (otherChallenge) {
-      setSelectedChallenge(otherChallenge.id);
+  const navigateToPrompt = indexChange => {
+    const otherPrompt = unlockedPrompts[promptIndex + indexChange];
+    if (otherPrompt) {
+      setSelectedPrompt(otherPrompt.id);
     }
   };
 
@@ -64,7 +60,7 @@ function ChallengeScreen({ navigation, theme }) {
           <Spacer height={12} width="100%" />
           <View style={styles.cardContainer(theme)}>
             <View style={styles.detailsContainer(theme)}>
-              <ChallengeDetails challenge={challenge} />
+              <PromptDetails prompt={prompt} />
             </View>
             <LinearGradient
               colors={theme.colors.Gradient}
@@ -76,7 +72,7 @@ function ChallengeScreen({ navigation, theme }) {
             <PhotoUploadButton
               image={image}
               captions={captions}
-              selectedChallenge={selectedChallenge}
+              selectedPrompt={selectedPrompt}
               navigation={navigation}
             />
           </View>
@@ -117,8 +113,8 @@ function ChallengeScreen({ navigation, theme }) {
         <View style={styles.navigationButtons}>
           <Pressable
             style={styles.navigationButton(theme)}
-            onPress={() => navigateToChallenge(-1)}
-            disabled={challengeIndex - 1 >= 0 ? false : true}
+            onPress={() => navigateToPrompt(-1)}
+            disabled={promptIndex - 1 >= 0 ? false : true}
           >
             <ChevronLeft />
             <Text style={styles.navigationButtonText(theme)}>previous</Text>
@@ -128,7 +124,7 @@ function ChallengeScreen({ navigation, theme }) {
               styles.navigationButton(theme),
               { justifyContent: "flex-end" }
             ]}
-            onPress={() => navigateToChallenge(1)}
+            onPress={() => navigateToPrompt(1)}
           >
             <Text
               style={[styles.navigationButtonText(theme), { marginRight: 8 }]}
@@ -159,7 +155,7 @@ const styles = StyleSheet.create({
   },
   cont: { paddingLeft: 16, paddingRight: 16, height: "100%", flex: 1 },
   contentContainer: {
-    height: "100%",
+    minHeight: "100%",
     flex: 1,
     justifyContent: "flex-end"
   },
@@ -259,4 +255,4 @@ const styles = StyleSheet.create({
   })
 });
 
-export default withTheme(ChallengeScreen);
+export default withTheme(PromptScreen);

@@ -1,4 +1,3 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { withTheme } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
