@@ -13,16 +13,19 @@ import TextG916 from "../components/styleComponents/TextG916";
 import HeaderCloseBar from "../components/HeaderCloseBar";
 import GradientButton from "../components/styleComponents/GradientButton";
 import { helpers } from "../helpers/helpers";
+import usePrompts from "../hooks/prompts";
 
 //rsf
 function CaptionsScreen({ navigation, theme }) {
   const { updateCompletedPrompt } = useContext(UserContext);
   const { selectedPrompt, app } = useContext(AppContext);
+  const { getPromptById } = usePrompts();
   const [selectedCaption, setSelectedCaption] = useState(null);
   const [customText, setCustomText] = useState("");
-  const { prompts } = app;
-  const prompt = prompts.find(chal => chal.id === selectedPrompt);
+  console.log(selectedPrompt);
+  const prompt = getPromptById(selectedPrompt);
   const { id, captions } = prompt;
+  console.log(captions);
 
   useEffect(() => {
     if (selectedCaption !== null) {

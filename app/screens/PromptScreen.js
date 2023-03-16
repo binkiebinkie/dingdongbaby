@@ -6,7 +6,6 @@ import AppContext from "../state/AppContext";
 import UserContext from "../state/UserContext";
 import AppBackground from "../components/AppBackground";
 import Alert from "../assets/svgs/Alert";
-import Tip from "../assets/svgs/Tip";
 import ChevronLeft from "../assets/svgs/ChevronLeft";
 import PromptDetails from "../components/PromptDetails";
 import PhotoCard from "../components/PhotoCard";
@@ -17,16 +16,19 @@ import HeaderCloseBar from "../components/HeaderCloseBar";
 import Camera from "../assets/svgs/Camera";
 import { helpers } from "../helpers/helpers";
 import usePrompts from "../hooks/prompts";
+import Tip from "../components/styleComponents/Tip";
 
 //rsf
 function PromptScreen({ navigation, theme }) {
-  const { user } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
   const { selectedPrompt, setSelectedPrompt, app } = useContext(AppContext);
   const { unlockedPrompts } = usePrompts();
-
-  const image = user.completedPrompts.find(
-    obj => obj.promptId === selectedPrompt
-  );
+  console.log(userState.completedPrompts);
+  console.log(selectedPrompt);
+  const image = userState.completedPrompts.find(
+    obj => Number(obj.promptId) === Number(selectedPrompt)
+  )?.assets[0];
+  console.log(image);
   const prompt = unlockedPrompts.find(p => p.id === selectedPrompt);
   const { desc, warning, tip, id, captions } = prompt;
   const promptIndex = unlockedPrompts.findIndex(p => p.id === selectedPrompt);
@@ -76,20 +78,7 @@ function PromptScreen({ navigation, theme }) {
               navigation={navigation}
             />
           </View>
-          {tip.length ? (
-            <View
-              style={[styles.tipContainer(theme), styles.alertContainer(theme)]}
-            >
-              <View style={styles.svgContainer(theme)}>
-                <Tip />
-              </View>
-              <Text style={[styles.tipText(theme), styles.alertText(theme)]}>
-                {tip}
-              </Text>
-            </View>
-          ) : (
-            []
-          )}
+          {tip.length ? <Tip tip={tip} /> : []}
           {warning.length ? (
             <View
               style={[
@@ -150,14 +139,12 @@ const styles = StyleSheet.create({
   closeContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "flex-end",
     marginBottom: 24
   },
   cont: { paddingLeft: 16, paddingRight: 16, height: "100%", flex: 1 },
   contentContainer: {
     minHeight: "100%",
-    flex: 1,
-    justifyContent: "flex-end"
+    flex: 1
   },
   desc: theme => ({ fontSize: 20, color: theme.colors.G10, paddingBottom: 20 }),
   detailsContainer: theme => ({
@@ -211,7 +198,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 4
   }),
-
   alertContainer: theme => ({
     borderRadius: 8,
     marginTop: 4,

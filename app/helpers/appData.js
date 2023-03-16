@@ -34,21 +34,6 @@ export const allSettings = [
   }
 ];
 
-export const initialUser = {
-  id: "",
-  dateSignedUp: moment(),
-  email: "",
-  password: "",
-  credits: 0,
-  lastUpdated: moment(),
-  completedPrompts: [], // array of photo ids
-  unlockedPrompts: [], // array of photo ids
-  sharingLinks: [],
-  name: "",
-  gender: "",
-  babies: [{ name: "", gender: "", dob: "" }]
-};
-
 export const initialApp = {
   lastUpdated: moment(),
   selectedPrompt: null,

@@ -1,22 +1,16 @@
 import React, { useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  ScrollView,
-  ImageBackground
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { withTheme } from "react-native-elements";
-import AppBackground from "../components/AppBackground";
-import PromptsContainer from "../components/PromptsContainer";
-import UnlockPromptsContainer from "../components/UnlockPromptsContainer";
-import HomeHeader from "../components/HomeHeader";
-import HomeSettingsContainer from "../components/HomeSettingsContainer";
-import Spacer from "../components/styleComponents/Spacer";
-import AlbumContainer from "../components/AlbumContainer";
-import AppContext from "../state/AppContext";
-import usePrompts from "../hooks/prompts";
-import UserContext from "../state/UserContext";
+import AppBackground from "../../components/AppBackground";
+import UnlockedPromptsContainer from "./UnlockedPromptsContainer";
+import UnlockPromptsContainer from "./UnlockPromptsContainer";
+import HomeHeader from "./HomeHeader";
+import HomeSettingsContainer from "./HomeSettingsContainer";
+import Spacer from "../../components/styleComponents/Spacer";
+import AlbumContainer from "../../components/AlbumContainer";
+import AppContext from "../../state/AppContext";
+import usePrompts from "../../hooks/prompts";
+import UserContext from "../../state/UserContext";
 
 // TODO: compress bg img further
 // rsf
@@ -37,7 +31,7 @@ const HomeScreen = ({ navigation, theme }) => {
         <Spacer width="100%" height={24} />
         {selectedHomeScreen === "prompts" ? (
           <View style={styles.darkContainer(theme)}>
-            <PromptsContainer />
+            <UnlockedPromptsContainer />
             <UnlockPromptsContainer />
           </View>
         ) : (

@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
+import { withTheme } from "react-native-elements";
+import useTranslation from "../hooks/translations";
 import AppBackground from "../components/AppBackground";
 import SettingsContext from "../state/SettingsContext";
 import SettingContainer from "../components/SettingContainer";
 import UpsellContainer from "../components/UpsellContainer";
-import { withTheme } from "react-native-elements";
 import GradientButton from "../components/styleComponents/GradientButton";
 import HeaderCloseBar from "../components/HeaderCloseBar";
 
 //rsf
 function SettingsScreen({ route, theme }) {
   const { allSettings } = useContext(SettingsContext);
+  const { t } = useTranslation();
   return (
     <AppBackground>
       <View style={styles.headerContainer}>
@@ -30,7 +32,9 @@ function SettingsScreen({ route, theme }) {
       </View>
       <View style={styles.ethGradCont}>
         <Text style={styles.ethGrad(theme)}>by ethics gradient</Text>
-        <Text style={styles.version(theme)}>v1.0</Text>
+        <Text style={styles.version(theme)}>
+          {t("settings/version", { version: 1.0 })}
+        </Text>
       </View>
     </AppBackground>
   );

@@ -11,8 +11,10 @@ import { withTheme } from "react-native-elements";
 const PromptDetails = ({
   theme,
   homePrompt,
-  prompt: { name, id, difficulty, emoji, photo, key }
+  prompt: { name, id, difficulty, emoji, photo }
 }) => {
+  const diff = Number(difficulty);
+
   return (
     <Fragment key={`${name}${id}`}>
       <View style={styles.containerLeft(theme)}>
@@ -29,27 +31,27 @@ const PromptDetails = ({
           <View
             style={[
               styles.difficultyContainer(theme),
-              difficulty === 1
+              diff === 1
                 ? styles.difficulty1(theme)
-                : difficulty === 2
+                : diff === 2
                 ? styles.difficulty2(theme)
                 : styles.difficulty3(theme)
             ]}
           >
-            {[...Array(difficulty)].map((e, i) => (
+            {[...Array.from(Array(Number(diff)))].map((e, i) => (
               <Fragment key={`${i}${i}${e}`}>
                 <View
                   key={i}
                   style={[
                     styles.difficultyCircle(theme),
-                    difficulty === 1
+                    diff === 1
                       ? styles.difficultyCircle1(theme)
-                      : difficulty === 2
+                      : diff === 2
                       ? styles.difficultyCircle2(theme)
                       : styles.difficultyCircle3(theme)
                   ]}
                 />
-                {i === difficulty - 1 ? null : (
+                {i === diff - 1 ? null : (
                   <Spacer key={`spacer${i}`} width={4} height={"100%"} />
                 )}
               </Fragment>

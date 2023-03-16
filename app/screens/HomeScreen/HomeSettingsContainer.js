@@ -1,7 +1,7 @@
+import { withTheme } from "react-native-elements";
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import SettingsBaby from "../assets/svgs/SettingsBaby";
-import { withTheme } from "react-native-elements";
+import SettingsBaby from "../../assets/svgs/SettingsBaby";
 
 function HomeSettingsContainer({ theme, navigation }) {
   const navigateToSettings = () => navigation.navigate("Settings");

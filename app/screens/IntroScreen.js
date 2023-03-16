@@ -23,8 +23,6 @@ function IntroScreen({ navigation, route, theme }) {
   console.log(userState);
   const { addRandomPrompt } = usePrompts();
   const navigateHome = async () => {
-    // console.log("yolo", yolo);
-    // updateUser(true, "hasViewedIntro");
     if (userState?.unlockedPrompts?.length === 0) {
       addRandomPrompt(1);
       addRandomPrompt(2);

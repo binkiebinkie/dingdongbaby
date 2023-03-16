@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { withTheme } from "react-native-elements";
-import AppContext from "../state/AppContext";
+import AppContext from "../../state/AppContext";
 import HomePrompt from "./HomePrompt";
-import usePrompts from "../hooks/prompts";
+import usePrompts from "../../hooks/prompts";
 
-function PromptsContainer({ theme }) {
+function UnlockedPromptsContainer({ theme }) {
   const { app } = useContext(AppContext);
   // const { prompts } = app;
   const { unlockedPrompts } = usePrompts();
-  console.log(unlockedPrompts);
+
   return (
     <View style={styles.container(theme)}>
       <View style={styles.promptsScroll(theme)}>
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   })
 });
 
-export default withTheme(PromptsContainer);
+export default withTheme(UnlockedPromptsContainer);

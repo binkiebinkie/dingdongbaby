@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View } from "react-native";
 import { withTheme } from "react-native-elements";
 import UserContext from "../state/UserContext";
 import AppContext from "../state/AppContext";
@@ -7,9 +7,9 @@ import PhotoCard from "./PhotoCard";
 import moment from "moment";
 
 function AlbumContainer({ theme }) {
-  const { user } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
   const { app } = useContext(AppContext);
-  const { completedPrompts } = user;
+  const { completedPrompts } = userState;
   const { prompts } = app;
   console.log(
     "completedPromptscompletedPromptscompletedPrompts",

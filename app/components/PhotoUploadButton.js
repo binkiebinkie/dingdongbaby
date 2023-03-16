@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
-import { StyleSheet, View } from "react-native";
+import { useContext } from "react";
+import { StyleSheet, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { withTheme } from "react-native-elements";
+import { launchImageLibrary } from "react-native-image-picker";
 import moment from "moment";
 import UserContext from "../state/UserContext";
 import GradientButton from "./styleComponents/GradientButton";
 import BeigeButton from "./styleComponents/BeigeButton";
+import { uniqueId } from "lodash";
+import useTranslation from "../hooks/translations";
 
 function PhotoUploadButton({
   theme,
@@ -14,7 +17,8 @@ function PhotoUploadButton({
   captions,
   navigation
 }) {
-  const { user } = useContext(UserContext);
+  const { t } = useTranslation();
+  const { updateCompletedPrompts } = useContext(UserContext);
 
   const pickImage = async () => {
     () => {
@@ -24,69 +28,80 @@ function PhotoUploadButton({
             status
           } = await ImagePicker.requestCameraRollPermissionsAsync();
           if (status !== "granted") {
-            alert("Sorry, we need camera roll permissions to make this work!");
+            alert(t("permissions/camera-roll"));
           }
         }
       })();
     };
-    console.log("hereeeee");
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
+    console.log("hereeeee", Platform);
+    const result = await launchImageLibrary({
+      mediaType: Platform.OS === "web" ? "photo" : "mixed",
+      saveToPhotos: true,
+      includeExtra: true,
       quality: 1
     });
 
     console.log("result", result);
+    const { didCancel, assets } = result;
 
-    if (!result.cancelled) {
-      // don't mutate user PLS LOL
-      const newUser = JSON.parse(JSON.stringify(user));
-      console.log("HEREE", newUser);
-
-      const thisImageIndex = newUser.completedPrompts.indexOf(
-        prompt => prompt.promptId === selectedPrompt
-      );
-      // let newData = {};
-      if (thisImageIndex >= 0) {
-        newUser.completedPrompts[thisImageIndex].path = result.uri;
-        newUser.completedPrompts[
-          thisImageIndex
-        ].dateUploaded = moment().format();
-        newUser.completedPrompts[thisImageIndex].width = result.width;
-        newUser.completedPrompts[thisImageIndex].height = result.height;
-        // newData = newUser.completedPrompts[thisImageIndex];
-      } else {
-        newUser.completedPrompts.push({
-          id: newUser.completedPrompts.length,
-          promptId: selectedPrompt,
-          path: result.uri,
-          dateUploaded: moment().format("MMM DD YYYY"),
-          height: result.height,
-          width: result.width,
-          caption: captions[0]
-        });
-        // newData =
-        //   newUser.completedPrompts[newUser.completedPrompts.length - 1];
-        navigation.navigate("Captions");
-      }
-
-      // TODO: Edit user on server
-      // await storageHelpers
-      //   .postAddCompletedPrompt(newData)
-      //   .then(resp => {
-      //     console.log("postAddCompletedPrompt ", resp);
-      //     return setUser(newUser);
-      //   })
-      //   .catch(err => console.log("err postAddCompletedPrompt ", err));
+    if (!didCancel) {
+      const { uri, width, height, assetId } = assets[0];
+      updateCompletedPrompts(selectedPrompt, {
+        assetId,
+        id: uniqueId("asset-"),
+        promptId: selectedPrompt,
+        path: uri,
+        dateUploaded: moment().format("DD MMM YYYY"),
+        height,
+        width,
+        caption: captions[0] || ""
+      });
     }
   };
+
+  // const pickImage = async () => {
+  //   () => {
+  //     (async () => {
+  //       if (Platform.OS !== "web") {
+  //         const {
+  //           status
+  //         } = await ImagePicker.requestCameraRollPermissionsAsync();
+  //         if (status !== "granted") {
+  //           alert(t("permissions/camera-roll"));
+  //         }
+  //       }
+  //     })();
+  //   };
+  //   console.log("hereeeee");
+  //   const result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     quality: 1
+  //   });
+
+  //   console.log("result", result);
+
+  //   if (!result.canceled) {
+  //     const { uri, width, height, assetId } = result.assets[0];
+  //     updateCompletedPrompts(selectedPrompt, {
+  //       assetId,
+  //       id: uniqueId("asset-"),
+  //       promptId: selectedPrompt,
+  //       path: uri,
+  //       dateUploaded: moment().format("DD MMM YYYY"),
+  //       height,
+  //       width,
+  //       caption: captions[0] || ""
+  //     });
+  //   }
+  // };
 
   return (
     <View style={styles.container(theme)}>
       {!image || image === -1 ? (
         <GradientButton copy="Upload Photo" onPress={pickImage} />
       ) : (
-        <BeigeButton copy="Change Photo" onPress={pickImage} />
+        <BeigeButton copy="Upload more photos" onPress={pickImage} />
       )}
     </View>
   );

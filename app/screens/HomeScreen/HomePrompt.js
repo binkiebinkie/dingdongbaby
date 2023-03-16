@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import AppContext from "../state/AppContext";
-import PromptDetails from "./PromptDetails";
+import AppContext from "../../state/AppContext";
+import PromptDetails from "../../components/PromptDetails";
 
 import { withTheme } from "react-native-elements";
 

@@ -41,6 +41,16 @@
         "wasm",
         "svg"
       ]
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "To view photos in DingDong Baby give us photos permission. We NEVER store your beautiful photos off your device.",
+          "cameraPermission": "Wanna take a quick snap of your baby? Please let DingDong Baby access your camera.",
+          "microphonePermission": "Record those goo goo gah gahs for future you. Please let DingDong Baby access your mic."
+        }
+      ]
+    ]
   }
 }

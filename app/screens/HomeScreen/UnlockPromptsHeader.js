@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import { withTheme } from "react-native-elements";
-import Locked from "../assets/svgs/Locked";
-import CircleBar from "./CircleBar";
+import Locked from "../../assets/svgs/Locked";
+import CircleBar from "../../components/CircleBar";
 
 function UnlockPromptsHeader({ navigation, theme }) {
   const navigateToPrompt = () => {

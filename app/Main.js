@@ -12,7 +12,7 @@ import UserContext from "./state/UserContext";
 import AppContext from "./state/AppContext";
 import SettingsContext from "./state/SettingsContext";
 import { getAppData, storeAppData, clearAll } from "./storage";
-import HomeScreen from "./screens/HomeScreen";
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import IntroScreen from "./screens/IntroScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import SettingScreen from "./screens/SettingScreen";

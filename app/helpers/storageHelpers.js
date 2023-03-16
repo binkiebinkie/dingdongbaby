@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import { initialUser, initialApp } from "./appData";
+import { initialApp } from "./appData";
 
 export default {
   postIsCacheOrServerNewer: async cacheData =>
@@ -36,8 +36,6 @@ export default {
       .post("/user/add-completed-prompt", { prompt })
       .then(resp => resp.data)
       .catch(err => console.log("postAddCompletedPrompt err", err)),
-
-  setInitialUser: initialUser,
 
   setInitialApp: initialApp
 };

@@ -1,4 +1,3 @@
-import * as React from "react";
 import Svg, { Path, Mask, Rect } from "react-native-svg";
 const SvgComponent = (props, { stroke }) => (
   <Svg

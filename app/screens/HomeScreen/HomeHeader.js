@@ -1,9 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
-
 import { withTheme } from "react-native-elements";
-import Checkmark from "../assets/svgs/Checkmark";
-import CircleBar from "./CircleBar";
+import Checkmark from "../../assets/svgs/Checkmark";
+import CircleBar from "../../components/CircleBar";
 
 function HomeHeader({
   navigation,
