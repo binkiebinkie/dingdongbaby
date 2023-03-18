@@ -1,7 +1,7 @@
 import { withTheme } from "react-native-elements";
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import SettingsBaby from "../../assets/svgs/SettingsBaby";
+import SettingsBaby from "../../assets/svgs/settingsBaby";
 
 function HomeSettingsContainer({ theme, navigation }) {
   const navigateToSettings = () => navigation.navigate("Settings");
@@ -12,7 +12,7 @@ function HomeSettingsContainer({ theme, navigation }) {
       </Pressable>
     </View>
   );
-}
+} 
 
 //rnss
 const styles = StyleSheet.create({

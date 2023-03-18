@@ -1,14 +1,13 @@
-import { AppRegistry, Platform } from "react-native";
-import { useEffect } from "react";
-import Main from "./app/Main";
-import useTranslation from "./app/hooks/translations";
-AppRegistry.registerComponent(Main, () => App);
+// // import { AppRegistry, Platform } from "react-native";
+// import { useEffect } from "react";
+// import DingDongBaby from "./app/index";
+// import useTranslation from "./app/hooks/translations";
 
-const App = () => {
-  const { initializeTranslation } = useTranslation();
-  useEffect(initializeTranslation, []);
+// const App = () => {
+//   const { initializeTranslation } = useTranslation();
+//   useEffect(initializeTranslation, []);
 
-  return <Main />;
-};
+//   return <DingDongBaby />;
+// };
 
-export default App;
+// export default App;

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "dingdongbaby",
-    "slug": "dingdongbaby",
+    "name": "DingDongBaby",
+    "slug": "DingDongBaby",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,15 +13,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.binkiebinkie.DingDongBaby"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -51,6 +57,11 @@
           "microphonePermission": "Record those goo goo gah gahs for future you. Please let DingDong Baby access your mic."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "92a0aed5-fa89-4333-8cd0-6e1a12d85092"
+      }
+    }
   }
 }
