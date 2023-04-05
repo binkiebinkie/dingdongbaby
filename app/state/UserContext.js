@@ -1,4 +1,8 @@
 import { createContext } from "react";
 
-const UserContext = createContext({});
+const UserContext = createContext({
+  userState: {},
+  setUserState: () => {},
+});
+
 export default UserContext;

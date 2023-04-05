@@ -1,30 +1,24 @@
-import React, { useContext } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import { withTheme } from "react-native-elements";
-import UserContext from "../state/UserContext";
-import AppContext from "../state/AppContext";
+
 import PhotoCard from "./PhotoCard";
 import moment from "moment";
+import useUser from "../hooks/user";
 
 function AlbumContainer({ theme }) {
-  const { userState } = useContext(UserContext);
-  const { app } = useContext(AppContext);
+  const { userState } = useUser();
   const { completedPrompts } = userState;
-  const { prompts } = app;
-  console.log(
-    "completedPromptscompletedPromptscompletedPrompts",
-    completedPrompts
-  );
-
+  console.log(completedPrompts);
   return (
     <View style={styles.container(theme)}>
       <View style={styles.promptsScroll(theme)}>
-        {completedPrompts.map(chal => (
+        {completedPrompts.map(({ uri, id, dateUploaded, caption }) => (
           <PhotoCard
-            key={chal.id}
-            image={chal.path}
-            date={moment().format(chal.dateUploaded, "MMM DD YYYY")}
-            copy={chal.caption}
+            key={id}
+            image={uri}
+            date={moment().format(dateUploaded, "MMM DD YYYY")}
+            copy={caption}
           />
         ))}
       </View>
@@ -34,15 +28,15 @@ function AlbumContainer({ theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  container: theme => ({
+  container: (theme) => ({
     position: "relative",
-    flex: 1
+    flex: 1,
   }),
-  promptsScroll: theme => ({
+  promptsScroll: (theme) => ({
     width: "100%",
     flex: 1,
-    flexDirection: "column"
-  })
+    flexDirection: "column",
+  }),
 });
 
 export default withTheme(AlbumContainer);

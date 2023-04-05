@@ -1,6 +1,9 @@
-import {AppRegistry} from 'react-native';
-import DingDongBaby from './app/index';
-import {name as appName} from './app.json';
+import { registerRootComponent } from "expo";
+import DingDongBaby from "./app/index";
 
-AppRegistry.registerComponent(appName, () => DingDongBaby);
-// export default app;
+registerRootComponent(DingDongBaby);
+
+// import { AppRegistry } from "react-native";
+// import DingDongBaby from "./app/index";
+
+// AppRegistry.registerComponent("main", () => DingDongBaby);

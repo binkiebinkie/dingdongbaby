@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { StyleSheet, View, SafeAreaView, Text, Button } from "react-native";
 import { withTheme } from "react-native-elements";
 import moment from "moment";
-import { getUniqueId } from "react-native-device-info";
 
 import PhotoCard from "../components/PhotoCard";
 import AppBackground from "../components/AppBackground";
@@ -13,23 +12,36 @@ import monk1 from "../assets/placeholders/monk1.png";
 import monk2 from "../assets/placeholders/monk2.png";
 import monk3 from "../assets/placeholders/monk3.png";
 import monk4 from "../assets/placeholders/monk4.png";
-import UserContext from "../state/UserContext";
+
 import useTranslation from "../hooks/translations";
+import useUser from "../hooks/user";
 import usePrompts from "../hooks/prompts";
 //rsf
 function IntroScreen({ navigation, route, theme }) {
   const { t } = useTranslation();
-  const { userState } = useContext(UserContext);
-  console.log(userState);
-  const { addRandomPrompt } = usePrompts();
+  const { changeUserOnboarding, userState } = useUser();
+  const { addRandomPromptToUser } = usePrompts();
   const navigateHome = async () => {
-    if (userState?.unlockedPrompts?.length === 0) {
-      addRandomPrompt(1);
-      addRandomPrompt(2);
-      addRandomPrompt(3);
-    }
+    console.log("pressed");
 
-    return navigation.navigate("Home");
+    try {
+      await changeUserOnboarding({ viewedIntro: true });
+      if (userState?.unlockedPromptIds?.length === 0) {
+        await addRandomPromptToUser(1);
+        await addRandomPromptToUser(1);
+        await addRandomPromptToUser(1);
+        await addRandomPromptToUser(2);
+        await addRandomPromptToUser(2);
+        await addRandomPromptToUser(2);
+        await addRandomPromptToUser(3);
+        await addRandomPromptToUser(3);
+        await addRandomPromptToUser(3);
+      }
+
+      // return navigation.navigate("Home");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -103,8 +115,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
-    padding: 16
-  }
+    padding: 16,
+  },
 });
 
 export default withTheme(IntroScreen);

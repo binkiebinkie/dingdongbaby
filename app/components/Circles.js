@@ -8,7 +8,7 @@ const CircleBar = ({ theme, numPromptsComplete, numPrompts }) => {
   const [contWidth, setContWidth] = useState(0);
   const [numCircles, setNumCircles] = useState(45);
   const [gradientWidth, setGradientWidth] = useState(
-    numPromptsComplete && numPrompts ? 4 : 0
+    numPromptsComplete && numPrompts ? 100 : 0
   );
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const CircleBar = ({ theme, numPromptsComplete, numPrompts }) => {
 
   return (
     <View
-      onLayout={e => setContWidth(e.nativeEvent.layout.width)}
+      onLayout={(e) => setContWidth(e.nativeEvent.layout.width)}
       style={styles.circleBarCont(theme)}
     >
       {numPromptsComplete && numPrompts ? (
@@ -48,26 +48,26 @@ const CircleBar = ({ theme, numPromptsComplete, numPrompts }) => {
 
 //rnss
 const styles = StyleSheet.create({
-  circleBarCont: theme => ({
+  circleBarCont: (theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%"
+    width: "100%",
   }),
-  gradient: theme => ({
+  gradient: (theme) => ({
     height: 4,
     borderRadius: 4,
     position: "absolute",
     left: 0,
     top: 0,
     bottom: 0,
-    zIndex: 1000
+    zIndex: 1000,
   }),
-  circle: theme => ({
+  circle: (theme) => ({
     width: 4,
     height: 4,
     backgroundColor: theme.colors.G4,
-    borderRadius: 50
-  })
+    borderRadius: 50,
+  }),
 });
 
 export default withTheme(CircleBar);

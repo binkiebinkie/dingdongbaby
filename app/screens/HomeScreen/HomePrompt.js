@@ -14,12 +14,11 @@ function HomePrompt({ theme, prompt, locked }) {
     setSelectedPrompt(prompt.id);
     return navigation.navigate("Prompt");
   };
-
   // TODO: refactor color of difficulty
   return (
     <Pressable onPress={() => (locked ? null : navigateToPrompt())}>
       <View style={styles.container(theme)}>
-        <PromptDetails prompt={prompt} homePrompt={true} />
+        <PromptDetails prompt={prompt} isHomePrompt={true} />
       </View>
     </Pressable>
   );
@@ -27,7 +26,7 @@ function HomePrompt({ theme, prompt, locked }) {
 
 //rnss
 const styles = StyleSheet.create({
-  container: theme => ({
+  container: (theme) => ({
     position: "relative",
     display: "flex",
     flexDirection: "row",
@@ -36,8 +35,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: theme.colors.PureWhite,
     padding: 12,
-    marginBottom: 4
-  })
+    marginBottom: 4,
+  }),
 });
 
 export default withTheme(HomePrompt);

@@ -1,41 +1,129 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import {
+  assignRandomPromptToUser,
+  readUnlockedPrompts,
+  readLockedPrompts,
+  readUnlockedPrompt,
+} from "../api/prompts";
 import prompts from "../prompts.json";
-import UserContext from "../state/UserContext.js";
+import UserContext from "../state/UserContext";
+import useListState from "./list";
+import useUser from "./user";
+// import { useUserContext } from "../state/UserContext";
 
 const usePrompts = () => {
-  const { updateUserArray, userState } = useContext(UserContext);
+  const { userState, setUserState } = useContext(UserContext);
+  const { updateUserArray } = useUser();
+  const {
+    listState: unlockedPrompts,
+    setListState: setUnlockedPrompts,
+    fetchListState: fetchUnlockedPrompts,
+  } = useListState(null, {
+    create: () => {},
+    read: readUnlockedPrompts,
+    update: () => {},
+    delete: () => {},
+  });
+
+  const {
+    listState: lockedPrompts,
+    setListState: setLockedPrompts,
+    fetchListState: fetchLockedPrompts,
+  } = useListState(null, {
+    create: () => {},
+    read: readLockedPrompts,
+    update: () => {},
+    delete: () => {},
+  });
 
   // TODO: API handles this
-  const fetchRandomPrompt = diff => {
-    const filteredPrompts = !!diff
-      ? prompts.filter(p => Number(p?.difficulty) == diff)
-      : prompts;
-    const randomIndex = Math.floor(Math.random() * filteredPrompts.length);
-    return filteredPrompts[randomIndex];
+  // const fetchRandomPrompt = (diff) => {
+  //   const { lockedPromptIds } = userState;
+
+  //   if (unlockedPromptIds.length === prompts.length) {
+  //     console.error("not enough prompts!! make more lazy team");
+  //     return;
+  //   }
+
+  //   const notAlreadyUnlockedPrompts = prompts.filter(({ id }) => {
+  //     const alreadyUnlocked = unlockedPromptIds.findIndex(
+  //       ({ promptId }) => Number(promptId) === Number(id)
+  //     );
+  //     if (alreadyUnlocked > -1) return false;
+  //     return true;
+  //   });
+
+  //   const difficultyFilteredPrompts = !!diff
+  //     ? notAlreadyUnlockedPrompts.filter((p) => Number(p?.difficulty) == diff)
+  //     : notAlreadyUnlockedPrompts;
+
+  //   const randomIndex = Math.floor(
+  //     Math.random() *
+  //       (difficultyFilteredPrompts.length === 0
+  //         ? notAlreadyUnlockedPrompts.length
+  //         : difficultyFilteredPrompts.length)
+  //   );
+
+  //   if (difficultyFilteredPrompts.length === 0) {
+  //     console.error("no prompts left with this difficulty!!");
+  //     return notAlreadyUnlockedPrompts[randomIndex];
+  //   }
+
+  //   return difficultyFilteredPrompts[randomIndex];
+  // };
+
+  const addRandomPromptToUser = async (difficulty) => {
+    try {
+      const { data } = await assignRandomPromptToUser({ difficulty });
+      console.log(data);
+      setUserState((prevState) => ({
+        ...prevState,
+        unlockedPromptIds: [...prevState.unlockedPromptIds, data],
+      }));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const addRandomPrompt = async difficulty => {
-    const randomPrompt = fetchRandomPrompt(difficulty);
-    console.log(randomPrompt);
-    updateUserArray("unlockedPrompts", randomPrompt?.id);
+  const getPromptById = async (id = "") => {
+    try {
+      const { data } = await readUnlockedPrompt(id);
+      console.log(data);
+      return data?.id;
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const getPromptById = (id = "") => prompts.find(p => p?.id == id);
-  const getPromptsById = (ids = []) => ids.map(id => getPromptById(id));
+  // const getPromptsById = (ids = []) => ids.map((id) => getPromptById(id));
+
+  // const getUnlockedPrompts = (unlockedPromptIds) => {
+  //   return getPromptsById(unlockedPromptIds);
+  // };
+
+  // useEffect(() => {
+  // setUnlockedPrompts(getPromptsById(userState?.unlockedPromptIds));
+  // }, [userState?.unlockedPromptIds]);
+  // useEffect(getUnlockedPrompts, [userState.unlockedPromptIds]);
 
   const allPromptsCount = prompts.length;
-  const unlockedPrompts = getPromptsById(userState?.unlockedPrompts);
   const completedPrompts = prompts.slice(0, 50);
-  const lockedPrompts = prompts.slice(50, 100);
+
+  useEffect(() => {
+    console.log("ahh fetch it!!");
+    fetchUnlockedPrompts();
+  }, [userState.unlockedPromptIds, userState?._id]);
+  useEffect(() => {
+    fetchLockedPrompts();
+  }, []);
 
   return {
     allPromptsCount,
     getPromptById,
-    getPromptsById,
-    unlockedPrompts,
     completedPrompts,
     lockedPrompts,
-    addRandomPrompt
+    unlockedPrompts,
+    addRandomPromptToUser,
   };
 };
 

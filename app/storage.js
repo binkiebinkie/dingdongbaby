@@ -1,14 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const STORAGE_KEY_USER = "@ddb_user";
 const STORAGE_KEY_APP = "@ddb_app";
+const STORAGE_KEY_TOKEN = "@ddb_token";
 
-export const storeUserData = async userState => {
+export const storeUserData = async (userState) => {
   try {
     if (userState && Object.keys(userState).length) {
       const jsonUserState = JSON.stringify(userState);
       console.log("storeUserData ", jsonUserState);
 
-      await AsyncStorage.setItem(STORAGE_KEY_USER, jsonUserState).catch(err =>
+      await AsyncStorage.setItem(STORAGE_KEY_USER, jsonUserState).catch((err) =>
         console.log(err)
       );
     }
@@ -19,8 +20,8 @@ export const storeUserData = async userState => {
 
 export const getUserData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY_USER).catch(err =>
-      console.log(err)
+    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY_USER).catch(
+      (err) => console.log(err)
     );
     console.log("getUserData jsonValue", jsonValue);
     return jsonValue !== null ? JSON.parse(jsonValue) : {};
@@ -29,12 +30,12 @@ export const getUserData = async () => {
   }
 };
 
-export const storeAppData = async appState => {
+export const storeAppData = async (appState) => {
   try {
     const jsonAppState = JSON.stringify(appState);
     console.log("storeAppData");
 
-    await AsyncStorage.setItem(STORAGE_KEY_APP, jsonAppState).catch(err =>
+    await AsyncStorage.setItem(STORAGE_KEY_APP, jsonAppState).catch((err) =>
       console.log(err)
     );
   } catch (e) {
@@ -45,7 +46,7 @@ export const storeAppData = async appState => {
 
 export const getAppData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY_APP).catch(err =>
+    const jsonValue = await AsyncStorage.getItem(STORAGE_KEY_APP).catch((err) =>
       console.log(err)
     );
     console.log("getAppData jsonValue");
@@ -66,4 +67,21 @@ export const clearAll = async () => {
   }
 
   console.log("Done. CLEARNING THE DATA BaYbEEEEEEE");
+};
+
+export const storeToken = async (token) => {
+  try {
+    await AsyncStorage.setItem(STORAGE_KEY_TOKEN, token);
+  } catch (error) {
+    console.error("Error saving token:", error);
+  }
+};
+
+export const getToken = async () => {
+  try {
+    return await AsyncStorage.getItem(STORAGE_KEY_TOKEN);
+  } catch (error) {
+    console.error("Error saving token:", error);
+    return null;
+  }
 };

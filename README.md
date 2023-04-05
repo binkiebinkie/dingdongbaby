@@ -31,5 +31,21 @@ USER
 - Completed prompts
   - prompt id, photo association
 - completed challenges
+- Can signup, assign prompts (do without login/password)
 
-- Can signup, assign 3 prompts (do without login/password)
+PROMPTS
+
+- List of prompts
+- Can get by prompt id, add random prompt to account, etc...
+
+SERVER PURPOSE
+
+- Prompts
+  - Send list of unlocked prompts to account - so all prompts aren't available to phone
+  - Pull photos from Instagram for different prompts inspiration
+  -
+- Account
+  -
+  - Host Account settings
+    - Store DLCs, Unlocked Prompts, etc...
+    - Permission to save baby photos to server "DingDong Baby does not save your beautiful memories to a database without your permission. This ensures your memories stay on your phone, behind lock and key (AKA phone password). But, should something happen to your phone you could lose your photos if you don't have them saved anywhere. Or if you wish to share your baby memories with friends and family you won't be able to as we don't have any of the memories saved. If you'd like, we can save them to our database for you but only with your permission."

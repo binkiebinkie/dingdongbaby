@@ -3,17 +3,7 @@ import { withTheme } from "react-native-elements";
 import Checkmark from "../../assets/svgs/Checkmark";
 import CircleBar from "../../components/CircleBar";
 
-function HomeHeader({
-  navigation,
-  theme,
-  copy,
-  allPromptsCount,
-  unlockedCount
-}) {
-  const navigateToPrompt = () => {
-    console.log("navigate to prompt", navigation);
-  };
-
+function HomeHeader({ theme, copy, allPromptsCount, unlockedCount }) {
   return (
     <View style={styles.cont(theme)}>
       <View style={styles.promptsCont(theme)}>
@@ -37,41 +27,41 @@ function HomeHeader({
 
 //rnss
 const styles = StyleSheet.create({
-  promptsCont: theme => ({
+  promptsCont: (theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   }),
-  cont: theme => ({
+  cont: (theme) => ({
     position: "relative",
     paddingLeft: 16,
-    paddingRight: 16
+    paddingRight: 16,
   }),
-  promptsFont: theme => ({
+  promptsFont: (theme) => ({
     fontSize: 32,
     letterSpacing: 0.374,
     lineHeight: 42,
     color: theme.colors.G7,
     fontFamily: "SFCompactRoundedBold",
-    textTransform: "lowercase"
+    textTransform: "lowercase",
   }),
-  checkCont: theme => ({
+  checkCont: (theme) => ({
     width: 16,
     height: 16,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: theme.colors.G2,
     borderRadius: 50,
-    marginRight: 8
+    marginRight: 8,
   }),
-  checkCount: theme => ({
+  checkCount: (theme) => ({
     fontSize: 14,
-    color: theme.colors.G6
+    color: theme.colors.G6,
   }),
-  totalCont: theme => ({
+  totalCont: (theme) => ({
     flexDirection: "row",
-    alignItems: "center"
-  })
+    alignItems: "center",
+  }),
 });
 
 export default withTheme(HomeHeader);

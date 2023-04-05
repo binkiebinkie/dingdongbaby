@@ -3,16 +3,16 @@ import { StyleSheet, View, TextInput } from "react-native";
 import AppBackground from "../components/AppBackground";
 import { withTheme } from "react-native-elements";
 import SettingsContext from "../state/SettingsContext";
-import UserContext from "../state/UserContext";
 import HeaderCloseBar from "../components/HeaderCloseBar";
+import useUser from "../hooks/user";
 
 //rsf
-const SettingScreen = ({ route, theme, navigation }) => {
+const SettingScreen = ({ theme }) => {
   const { selectedSetting } = useContext(SettingsContext);
-  const { user, updateUserKeyValue } = useContext(UserContext);
+  const { user, updateUserKeyValue } = useUser();
   const { inputs } = selectedSetting;
-  console.log(selectedSetting);
-  const renderInput = input => {
+
+  const renderInput = (input) => {
     const { type, name } = input;
     if (type === "text") {
       let keyboardType = "default";
@@ -22,7 +22,7 @@ const SettingScreen = ({ route, theme, navigation }) => {
           style={styles.textInput(theme)}
           key={name}
           name={name}
-          onChange={e => updateUserKeyValue(name, e.nativeEvent.text)}
+          onChange={(e) => updateUserKeyValue(name, e.nativeEvent.text)}
           value={user[name]}
           keyboardType={keyboardType}
         />
@@ -34,7 +34,7 @@ const SettingScreen = ({ route, theme, navigation }) => {
       <View style={styles.headerCont}>
         <HeaderCloseBar copy={selectedSetting.title} navigateTo="Settings" />
       </View>
-      {inputs.map(input => renderInput(input))}
+      {inputs.map((input) => renderInput(input))}
     </AppBackground>
   );
 };
@@ -42,9 +42,9 @@ const SettingScreen = ({ route, theme, navigation }) => {
 //rnss
 const styles = StyleSheet.create({
   headerCont: {
-    padding: 16
+    padding: 16,
   },
-  textInput: theme => ({
+  textInput: (theme) => ({
     width: "100%",
     backgroundColor: theme.colors.PureWhite,
     paddingTop: 12,
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    borderColor: theme.colors.G2
-  })
+    borderColor: theme.colors.G2,
+  }),
 });
 
 export default withTheme(SettingScreen);

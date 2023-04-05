@@ -1,10 +1,16 @@
-import { useState, useEffect, useId } from "react";
-import { storeUserData, getUserData } from "../storage";
+import { useEffect, useContext } from "react";
+import { storeUserData, storeToken, getToken } from "../storage";
 import moment from "moment";
-import { uniqueId } from "lodash";
+import { helpers } from "../helpers/helpers";
+import UserContext from "../state/UserContext";
+import { authenticateDevice } from "../api";
+import { readMe, updateUserOnboarding } from "../api/users";
+
+// on initialize, fetch user with token
+// if no token, try to refresh with just device id
 
 const initialUser = {
-  id: "",
+  _id: "",
   dateSignedUp: moment(),
   email: "",
   password: "",
@@ -15,71 +21,71 @@ const initialUser = {
   sharingLinks: [],
   name: "",
   gender: "",
-  babies: [{ name: "", gender: "", dob: "" }]
+  babies: [{ name: "", gender: "", dob: "" }],
+  uid: "",
+  onboarding: {
+    viewedIntro: false,
+  },
 };
 
-// completedPrompts: [
-//   {
-//     id: "",
-//     promptId: "",
-//     images: [
-//       {
-//         id: "",
-//         assetId: "",
-//         width: "",
-//         photoReferenceId: ""
-//       }
-//     ]
-//   }
-// ];
-
 const useUser = () => {
-  const [userState, setUserState] = useState({});
+  const { userState, setUserState } = useContext(UserContext);
 
   const fetchUserData = async () => {
     try {
-      const userData = await getUserData();
-      console.log("fetching userData", userData);
-
-      if (!!userData?.id) {
-        console.log("setUserState");
-        setUserState(userData);
+      const token = await getToken();
+      console.log("fetchingToken", token);
+      if (!!token && token !== "undefined") {
+        const { data } = await readMe(token);
+        console.log("{data}", data);
+        if (!!data) {
+          setUserState(data);
+        }
       } else {
-        setUserState({ ...initialUser, id: uniqueId("user-") });
+        const resp = await authenticateDevice();
+        console.log("respsresp", resp);
+        const { user } = resp;
+        console.log("fetchung user", user);
+        setUserState(user);
       }
     } catch (err) {
       console.error(err);
     }
   };
 
-  const updateUserKeyValue = (key, value) =>
-    setUserState(prevState => ({ ...prevState, [key]: value }));
+  const updateUserKeyValue = (key, value) => {
+    setUserState((prevState) => ({ ...prevState, [key]: value }));
+  };
 
-  const updateUserArray = (key, value) =>
-    setUserState(prevState => ({
+  const updateUserArray = (key, value) => {
+    setUserState((prevState) => ({
       ...prevState,
-      [key]: [...prevState[key], value]
+      [key]: [...prevState[key], value],
     }));
+  };
 
   const updateCompletedPrompts = (promptId, asset) => {
-    setUserState(prevState => {
+    setUserState((prevState) => {
       const { completedPrompts } = prevState;
+
       const completedPromptsIndex = completedPrompts.indexOf(
-        p => p.id === promptId
+        (p) => p.id === promptId
       );
+
       let newCompletedPrompt = {};
       if (completedPromptsIndex > -1) {
         const newCompletedPrompts = [...completedPrompts];
         const thisAssetIndex = newCompletedPrompts[
           completedPromptsIndex
-        ].assets?.indexOf(a => a.assetId === asset.assetId);
+        ].assets?.indexOf((a) => a.assetId === asset.assetId);
+
         if (thisAssetIndex > -1) {
           const assets = [...newCompletedPrompts[completedPromptsIndex].assets];
           assets[thisAssetIndex] = asset;
           newCompletedPrompts[completedPromptsIndex] = {
             ...newCompletedPrompts[completedPromptsIndex],
             selectedAsset: asset.assetId,
-            assets
+            assets,
           };
         } else {
           newCompletedPrompts[completedPromptsIndex] = {
@@ -87,49 +93,131 @@ const useUser = () => {
             selectedAsset: asset.assetId,
             assets: [
               ...newCompletedPrompts[completedPromptsIndex].assets,
-              asset
-            ]
+              asset,
+            ],
           };
         }
         return {
           ...prevState,
-          completedPrompts: newCompletedPrompts
+          completedPrompts: newCompletedPrompts,
         };
       } else {
         newCompletedPrompt = {
-          id: uniqueId("prompt-"),
+          id: helpers.guidGenerator("prompt-"),
           promptId,
           dateComplete: moment().toISOString(),
           selectedAsset: asset.id,
-          assets: [asset]
+          assets: [asset],
         };
+
         return {
           ...prevState,
-          completedPrompts: [...prevState.completedPrompts, newCompletedPrompt]
+          completedPrompts: [...prevState.completedPrompts, newCompletedPrompt],
         };
       }
     });
   };
 
   const updateCompletedPrompt = (key, value, id) => {
-    let newUser = JSON.parse(JSON.stringify(userState));
-    const thisPromptIndex = newUser.completedPrompts.findIndex(
-      chal => chal.promptId === id
+    let newUser = { ...userState };
+    const thisPromptIndex = newUser?.completedPrompts.findIndex(
+      (chal) => chal.promptId === id
     );
     newUser.completedPrompts[thisPromptIndex][key] = value;
+
     setUserState(newUser);
   };
 
+  const getCompletedPromptByPromptId = (promptId) => {
+    const completedPrompt = userState?.completedPrompts?.find(
+      (p) => p.promptId === promptId
+    );
+    return !!completedPrompt ? completedPrompt : {};
+  };
+
+  const getSelectedAssetByPromptId = (promptId) => {
+    const completedPrompt = getCompletedPromptByPromptId(promptId);
+
+    return (
+      completedPrompt?.assets?.find(
+        (a) => a.id === completedPrompt.selectedAsset
+      ) || {}
+    );
+  };
+
+  const sortUnlockedPromptIds = () => {
+    const { prioritizedPrompts, unlockedPromptIds } = userState || {};
+    if (!unlockedPromptIds || !prioritizedPrompts) return;
+    // for (let i = prioritizedPrompts.length - 1; i >= 0; i--) {
+    //   const id = Number(prioritizedPrompts[i]);
+    //   console.log("id", id);
+
+    //   const index = newUnlockedPromptIds.findIndex((pid) => Number(pid) === id);
+    //   console.log("index", index);
+    //   if (index > -1) {
+    //     newUnlockedPromptIds[index] = null;
+    //     newUnlockedPromptIds = [id, ...newUnlockedPromptIds];
+    //   }
+    // }
+    setUserState((prevState) => ({
+      ...prevState,
+      unlockedPromptIds: prevState.unlockedPromptIds?.reduce(
+        (acc, currentValue) => {
+          const isPrioritized = prevState?.prioritizedPrompts?.findIndex(
+            (pid) => pid === Number(currentValue)
+          );
+          if (isPrioritized > -1) return [currentValue, ...acc];
+          return [...acc, currentValue];
+        },
+        []
+      ),
+    }));
+  };
+
+  const togglePrioritizedPrompt = async (promptId) => {
+    const { prioritizedPrompts } = userState;
+    if (!prioritizedPrompts) return;
+    let newPrioritizedPrompts = [...prioritizedPrompts];
+    const id = Number(promptId);
+    const index = newPrioritizedPrompts.findIndex((pid) => Number(id) === pid);
+    if (index > -1) {
+      newPrioritizedPrompts = newPrioritizedPrompts.filter(
+        (pp) => Number(pp) !== id
+      );
+    } else {
+      newPrioritizedPrompts = [...newPrioritizedPrompts, id];
+    }
+
+    setUserState((prevState) => ({
+      ...prevState,
+      prioritizedPrompts: newPrioritizedPrompts.filter((f) => !!f),
+    }));
+  };
+
+  const changeUserOnboarding = async (onboarding) => {
+    try {
+      const updatedOnboarding = { ...userState.onboarding, ...onboarding };
+      const { data } = await updateUserOnboarding(updatedOnboarding);
+      setUserState(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(sortUnlockedPromptIds, [userState?.prioritizedPrompts]);
+
   useEffect(() => {
-    const { id } = userState;
-    console.log("ididid", id);
-    if (id) {
-      console.log("storing");
-      storeUserData(userState);
+    const { _id } = userState || {};
+    console.log(userState);
+    if (!_id) {
+      fetchUserData();
     }
   }, [userState]);
 
-  useEffect(fetchUserData, []);
+  // useEffect(() => {
+  //   console.log("i keep firing");
+  //   fetchUserData();
+  // }, []);
 
   return {
     updateUserArray,
@@ -137,7 +225,11 @@ const useUser = () => {
     userState,
     updateCompletedPrompt,
     fetchUserData,
-    updateCompletedPrompts
+    updateCompletedPrompts,
+    changeUserOnboarding,
+    getCompletedPromptByPromptId,
+    getSelectedAssetByPromptId,
+    togglePrioritizedPrompt,
   };
 };
 

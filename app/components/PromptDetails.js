@@ -1,19 +1,25 @@
-import React, { useContext, useState, useEffect, Fragment } from "react";
-import { StyleSheet, View, Text, Pressable, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import AppContext from "../state/AppContext";
+import React, { Fragment } from "react";
+import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import Star from "../assets/svgs/Star";
 import Spacer from "./styleComponents/Spacer";
 import { helpers } from "../helpers/helpers";
-
 import { withTheme } from "react-native-elements";
+import useUser from "../hooks/user";
 
 const PromptDetails = ({
   theme,
-  homePrompt,
-  prompt: { name, id, difficulty, emoji, photo }
+  isHomePrompt,
+  prompt: { name, id, difficulty, emoji, photo },
 }) => {
   const diff = Number(difficulty);
+
+  const { getSelectedAssetByPromptId, togglePrioritizedPrompt, userState } =
+    useUser();
+  const { prioritizedPrompts } = userState;
+  const selectedAsset = getSelectedAssetByPromptId(id);
+  const promptPrioritizedIndex = prioritizedPrompts?.findIndex(
+    (pid) => Number(pid) === Number(id)
+  );
 
   return (
     <Fragment key={`${name}${id}`}>
@@ -24,9 +30,18 @@ const PromptDetails = ({
             <Text style={styles.idText(theme)}>
               {helpers.numberToThreeDigits(id)}
             </Text>
-            <View style={styles.fav(theme)}>
-              <Star color={theme.colors.G2} />
-            </View>
+            <Pressable
+              style={styles.fav(theme)}
+              onPress={() => togglePrioritizedPrompt(id)}
+            >
+              <Star
+                color={
+                  promptPrioritizedIndex > -1
+                    ? theme.colors.G6
+                    : theme.colors.G2
+                }
+              />
+            </Pressable>
           </View>
           <View
             style={[
@@ -35,7 +50,7 @@ const PromptDetails = ({
                 ? styles.difficulty1(theme)
                 : diff === 2
                 ? styles.difficulty2(theme)
-                : styles.difficulty3(theme)
+                : styles.difficulty3(theme),
             ]}
           >
             {[...Array.from(Array(Number(diff)))].map((e, i) => (
@@ -48,7 +63,7 @@ const PromptDetails = ({
                       ? styles.difficultyCircle1(theme)
                       : diff === 2
                       ? styles.difficultyCircle2(theme)
-                      : styles.difficultyCircle3(theme)
+                      : styles.difficultyCircle3(theme),
                   ]}
                 />
                 {i === diff - 1 ? null : (
@@ -60,10 +75,10 @@ const PromptDetails = ({
         </View>
       </View>
       <View style={styles.containerRight(theme)}>
-        {homePrompt && photo ? (
+        {isHomePrompt && !!selectedAsset?.uri ? (
           <Image
-            resizeMode={"cover"}
-            source={{ uri: photo }}
+            resizeMode="cover"
+            source={{ uri: selectedAsset.uri }}
             style={styles.photo}
           />
         ) : (
@@ -76,7 +91,7 @@ const PromptDetails = ({
 
 //rnss
 const styles = StyleSheet.create({
-  container: theme => ({
+  container: (theme) => ({
     position: "relative",
     display: "flex",
     flexDirection: "row",
@@ -84,18 +99,18 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 12,
     background: "#FFFFFF",
-    padding: 12
+    padding: 12,
   }),
-  containerLeft: theme => ({
+  containerLeft: (theme) => ({
     flexDirection: "column",
     justifyContent: "space-between",
-    flex: 1
+    flex: 1,
   }),
-  containerLeftDetails: theme => ({
+  containerLeftDetails: (theme) => ({
     justifyContent: "space-between",
-    flexDirection: "row"
+    flexDirection: "row",
   }),
-  containerRight: theme => ({
+  containerRight: (theme) => ({
     width: "30%",
     justifyContent: "center",
     alignItems: "center",
@@ -103,19 +118,19 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     minHeight: 75,
     marginLeft: 8,
-    maxHeight: 75
+    maxHeight: 75,
   }),
-  favContainer: theme => ({
+  favContainer: (theme) => ({
     justifyContent: "flex-start",
-    flexDirection: "row"
+    flexDirection: "row",
   }),
-  fav: theme => ({}),
-  name: theme => ({
+  fav: (theme) => ({}),
+  name: (theme) => ({
     fontSize: 20,
     color: theme.colors.G9,
-    textTransform: "lowercase"
+    textTransform: "lowercase",
   }),
-  idText: theme => ({
+  idText: (theme) => ({
     backgroundColor: theme.colors.G2,
     color: theme.colors.G6,
     textAlignVertical: "center",
@@ -129,38 +144,38 @@ const styles = StyleSheet.create({
     height: 18,
     justifyContent: "center",
     alignItems: "center",
-    lineHeight: 14
+    lineHeight: 14,
   }),
   photo: {
     width: "100%",
     maxHeight: "100%",
     height: "100%",
-    borderRadius: 8
+    borderRadius: 8,
   },
-  difficultyContainer: theme => ({
+  difficultyContainer: (theme) => ({
     padding: 4,
     borderRadius: 50,
-    flexDirection: "row"
+    flexDirection: "row",
   }),
-  difficultyCircle: theme => ({
+  difficultyCircle: (theme) => ({
     width: 10,
     height: 10,
-    borderRadius: 6
+    borderRadius: 6,
   }),
-  difficultyCircle1: theme => ({ backgroundColor: theme.colors.Blue2 }),
-  difficultyCircle2: theme => ({
-    backgroundColor: theme.colors.Yellow2
+  difficultyCircle1: (theme) => ({ backgroundColor: theme.colors.Blue2 }),
+  difficultyCircle2: (theme) => ({
+    backgroundColor: theme.colors.Yellow2,
   }),
-  difficultyCircle3: theme => ({
-    backgroundColor: theme.colors.Red2
+  difficultyCircle3: (theme) => ({
+    backgroundColor: theme.colors.Red2,
   }),
-  difficulty1: theme => ({ backgroundColor: theme.colors.Blue1 }),
-  difficulty2: theme => ({
-    backgroundColor: theme.colors.Yellow1
+  difficulty1: (theme) => ({ backgroundColor: theme.colors.Blue1 }),
+  difficulty2: (theme) => ({
+    backgroundColor: theme.colors.Yellow1,
   }),
-  difficulty3: theme => ({ backgroundColor: theme.colors.Red1 }),
+  difficulty3: (theme) => ({ backgroundColor: theme.colors.Red1 }),
   emoji: { fontSize: 32 },
-  top: theme => ({})
+  top: (theme) => ({}),
 });
 
 export default withTheme(PromptDetails);

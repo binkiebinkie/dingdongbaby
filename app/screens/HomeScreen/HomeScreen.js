@@ -3,22 +3,29 @@ import { StyleSheet, View } from "react-native";
 import { withTheme } from "react-native-elements";
 import AppBackground from "../../components/AppBackground";
 import UnlockedPromptsContainer from "./UnlockedPromptsContainer";
-import UnlockPromptsContainer from "./UnlockPromptsContainer";
 import HomeHeader from "./HomeHeader";
 import HomeSettingsContainer from "./HomeSettingsContainer";
 import Spacer from "../../components/styleComponents/Spacer";
 import AlbumContainer from "../../components/AlbumContainer";
 import AppContext from "../../state/AppContext";
 import usePrompts from "../../hooks/prompts";
-import UserContext from "../../state/UserContext";
+import useUser from "../../hooks/user";
 
 // TODO: compress bg img further
 // rsf
 const HomeScreen = ({ navigation, theme }) => {
   const { selectedHomeScreen } = useContext(AppContext);
-  const { userState } = useContext(UserContext);
-  const { unlockedPrompts, allPromptsCount } = usePrompts();
-  console.log(userState);
+  const { allPromptsCount, unlockedPrompts } = usePrompts();
+
+  // const [unlockedPrompts, setUnlockedPrompts] = useState([]);
+  // useEffect(() => {
+  //   console.log("changed!!");
+  //   if (userState?.unlockedPromptIds) {
+  //     setUnlockedPrompts();
+  //   }
+  // }, [userState.unlockedPromptIds]);
+  // const unlockedPrompts = getUnlockedPrompts(userState?.unlockedPromptIds);
+
   return (
     <AppBackground hasNavigationButtons={true}>
       <View>
@@ -26,13 +33,13 @@ const HomeScreen = ({ navigation, theme }) => {
         <HomeHeader
           copy={selectedHomeScreen}
           allPromptsCount={allPromptsCount}
-          unlockedCount={unlockedPrompts.length}
+          unlockedCount={unlockedPrompts.count}
         />
         <Spacer width="100%" height={24} />
         {selectedHomeScreen === "prompts" ? (
           <View style={styles.darkContainer(theme)}>
             <UnlockedPromptsContainer />
-            <UnlockPromptsContainer />
+            {/* <UnlockPromptsContainer /> */}
           </View>
         ) : (
           <AlbumContainer />
@@ -44,19 +51,19 @@ const HomeScreen = ({ navigation, theme }) => {
 
 //rnss
 const styles = StyleSheet.create({
-  cont: theme => ({
+  cont: (theme) => ({
     position: "relative",
     paddingTop: 32,
-    minHeight: "100%"
+    minHeight: "100%",
   }),
-  darkContainer: theme => ({
+  darkContainer: (theme) => ({
     flex: 1,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     width: "100%",
     padding: 16,
-    backgroundColor: "#E0DDD7"
-  })
+    backgroundColor: "#E0DDD7",
+  }),
 });
 
 export default withTheme(HomeScreen);

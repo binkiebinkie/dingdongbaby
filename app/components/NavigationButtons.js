@@ -10,7 +10,7 @@ import AppContext from "../state/AppContext";
 
 function NavigationButtons({ theme }) {
   const { setSelectedHomeScreen, selectedHomeScreen } = useContext(AppContext);
-  console.log(selectedHomeScreen);
+
   return (
     <View style={styles.cont(theme)}>
       <TouchableOpacity
@@ -25,8 +25,8 @@ function NavigationButtons({ theme }) {
               color:
                 selectedHomeScreen === "prompts"
                   ? theme.colors.G7
-                  : theme.colors.G6
-            }
+                  : theme.colors.G6,
+            },
           ]}
         >
           prompts
@@ -45,8 +45,8 @@ function NavigationButtons({ theme }) {
               color:
                 selectedHomeScreen === "album"
                   ? theme.colors.G7
-                  : theme.colors.G6
-            }
+                  : theme.colors.G6,
+            },
           ]}
         >
           album
@@ -58,28 +58,28 @@ function NavigationButtons({ theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  promptsFont: theme => ({
+  promptsFont: (theme) => ({
     fontSize: 12,
     fontFamily: "SFCompactRoundedBold",
     textTransform: "lowercase",
-    color: theme.colors.G8
+    color: theme.colors.G8,
   }),
-  cont: theme => ({
+  cont: (theme) => ({
     backgroundColor: theme.colors.G3,
     position: "relative",
     width: "100%",
     height: "auto",
     padding: 4,
-    flexDirection: "row"
+    flexDirection: "row",
   }),
-  button: theme => ({
+  button: (theme) => ({
     flex: 1,
     borderRadius: 8,
     backgroundColor: theme.colors.G1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 4
-  })
+    padding: 4,
+  }),
 });
 
 export default withTheme(NavigationButtons);

@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, Text, TextInput, Pressable } from "react-native";
-import { withTheme, ThemeConsumer } from "react-native-elements";
+import { StyleSheet, View, TextInput, Pressable } from "react-native";
+import { withTheme } from "react-native-elements";
 
 import AppContext from "../state/AppContext";
-import UserContext from "../state/UserContext";
 import AppBackground from "../components/AppBackground";
 import CircleBar from "../components/CircleBar";
 import RadioButton from "../components/styleComponents/RadioButton";
@@ -14,18 +13,17 @@ import HeaderCloseBar from "../components/HeaderCloseBar";
 import GradientButton from "../components/styleComponents/GradientButton";
 import { helpers } from "../helpers/helpers";
 import usePrompts from "../hooks/prompts";
+import useUser from "../hooks/user";
 
 //rsf
 function CaptionsScreen({ navigation, theme }) {
-  const { updateCompletedPrompt } = useContext(UserContext);
-  const { selectedPrompt, app } = useContext(AppContext);
+  const { updateCompletedPrompt } = useUser();
+  const { selectedPrompt } = useContext(AppContext);
   const { getPromptById } = usePrompts();
   const [selectedCaption, setSelectedCaption] = useState(null);
   const [customText, setCustomText] = useState("");
-  console.log(selectedPrompt);
   const prompt = getPromptById(selectedPrompt);
   const { id, captions } = prompt;
-  console.log(captions);
 
   useEffect(() => {
     if (selectedCaption !== null) {
@@ -69,7 +67,7 @@ function CaptionsScreen({ navigation, theme }) {
             value={customText}
             placeholder="or add a custom caption..."
             placeholderTextColor={theme.colors.G5}
-            onChangeText={text => {
+            onChangeText={(text) => {
               setSelectedCaption(null);
               setCustomText(text);
             }}
@@ -92,29 +90,29 @@ const styles = StyleSheet.create({
   buttonCont: {
     width: "100%",
     paddingBottom: 16,
-    paddingTop: 16
+    paddingTop: 16,
   },
-  captionCont: theme => ({
+  captionCont: (theme) => ({
     flexDirection: "row",
     backgroundColor: theme.colors.PureWhite,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "space-between",
     padding: 12,
-    marginBottom: 4
+    marginBottom: 4,
   }),
   cont: {
     paddingLeft: 16,
     paddingRight: 16,
     height: "100%",
     flex: 1,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   contentContainer: {
     height: "100%",
-    flex: 1
+    flex: 1,
   },
-  textInput: theme => ({
+  textInput: (theme) => ({
     width: "100%",
     padding: 12,
     backgroundColor: theme.colors.PureWhite,
@@ -123,8 +121,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: theme.colors.G3,
     color: theme.colors.G9,
-    textAlignVertical: "top"
-  })
+    textAlignVertical: "top",
+  }),
   // cardContainer: theme => ({
   //   backgroundColor: "white",
   //   borderRadius: 12,

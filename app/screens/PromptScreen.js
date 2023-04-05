@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import { withTheme } from "react-native-elements";
 
 import AppContext from "../state/AppContext";
-import UserContext from "../state/UserContext";
 import AppBackground from "../components/AppBackground";
 import Alert from "../assets/svgs/Alert";
 import ChevronLeft from "../assets/svgs/ChevronLeft";
@@ -17,24 +16,24 @@ import Camera from "../assets/svgs/Camera";
 import { helpers } from "../helpers/helpers";
 import usePrompts from "../hooks/prompts";
 import Tip from "../components/styleComponents/Tip";
+import useUser from "../hooks/user";
 
 //rsf
 function PromptScreen({ navigation, theme }) {
-  const { userState } = useContext(UserContext);
-  const { selectedPrompt, setSelectedPrompt, app } = useContext(AppContext);
-  const { unlockedPrompts } = usePrompts();
-  console.log(userState.completedPrompts);
-  console.log(selectedPrompt);
-  const image = userState.completedPrompts.find(
-    obj => Number(obj.promptId) === Number(selectedPrompt)
-  )?.assets[0];
-  console.log(image);
-  const prompt = unlockedPrompts.find(p => p.id === selectedPrompt);
-  const { desc, warning, tip, id, captions } = prompt;
-  const promptIndex = unlockedPrompts.findIndex(p => p.id === selectedPrompt);
+  const { getPromptById } = usePrompts();
+  const { userState, getSelectedAssetByPromptId } = useUser();
+  const { selectedPrompt, setSelectedPrompt } = useContext(AppContext);
+  const { unlockedPromptIds } = userState;
 
-  const navigateToPrompt = indexChange => {
-    const otherPrompt = unlockedPrompts[promptIndex + indexChange];
+  const image = getSelectedAssetByPromptId(selectedPrompt);
+  const prompt = getPromptById(selectedPrompt);
+
+  if (!prompt) return;
+  const { desc, warning, tip, id, captions } = prompt;
+  const promptIndex = unlockedPromptIds?.findIndex((p) => p === selectedPrompt);
+
+  const navigateToPrompt = (indexChange) => {
+    const otherPrompt = unlockedPromptIds[promptIndex + indexChange];
     if (otherPrompt) {
       setSelectedPrompt(otherPrompt.id);
     }
@@ -48,11 +47,11 @@ function PromptScreen({ navigation, theme }) {
           navigateTo="Home"
         />
         <View style={styles.contentContainer}>
-          {image && image.path ? (
+          {image && image.uri ? (
             <PhotoCard
               copy={image.caption}
               date={image.date ? image.date : image.dateUploaded}
-              image={image.path}
+              image={image.uri}
             />
           ) : (
             <View style={styles.photoContainer(theme)}>
@@ -83,7 +82,7 @@ function PromptScreen({ navigation, theme }) {
             <View
               style={[
                 styles.warningContainer(theme),
-                styles.alertContainer(theme)
+                styles.alertContainer(theme),
               ]}
             >
               <View style={styles.svgContainer(theme)}>
@@ -111,7 +110,7 @@ function PromptScreen({ navigation, theme }) {
           <Pressable
             style={[
               styles.navigationButton(theme),
-              { justifyContent: "flex-end" }
+              { justifyContent: "flex-end" },
             ]}
             onPress={() => navigateToPrompt(1)}
           >
@@ -130,115 +129,119 @@ function PromptScreen({ navigation, theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  cardContainer: theme => ({
+  cardContainer: (theme) => ({
     backgroundColor: "white",
     borderRadius: 12,
     width: "100%",
-    padding: 12
+    padding: 12,
   }),
   closeContainer: {
     width: "100%",
     flexDirection: "row",
-    marginBottom: 24
+    marginBottom: 24,
   },
-  cont: { paddingLeft: 16, paddingRight: 16, height: "100%", flex: 1 },
+  cont: { paddingLeft: 16, paddingRight: 16, flex: 1 },
   contentContainer: {
-    minHeight: "100%",
-    flex: 1
+    height: "auto",
+    flex: 1,
   },
-  desc: theme => ({ fontSize: 20, color: theme.colors.G10, paddingBottom: 20 }),
-  detailsContainer: theme => ({
-    flexDirection: "row",
-    width: "100%"
+  desc: (theme) => ({
+    fontSize: 20,
+    color: theme.colors.G10,
+    paddingBottom: 20,
   }),
-  gradientLine: theme => ({
+  detailsContainer: (theme) => ({
+    flexDirection: "row",
+    width: "100%",
+  }),
+  gradientLine: (theme) => ({
     height: 4,
     borderRadius: 8,
     width: "100%",
     marginTop: 12,
-    marginBottom: 24
+    marginBottom: 24,
   }),
-  imageStyles: theme => ({
+  imageStyles: (theme) => ({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     width: 50,
     height: 50,
-    resizeMode: "contain"
+    resizeMode: "contain",
   }),
   navigationButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingBottom: 16,
-    paddingTop: 12
+    paddingTop: 12,
   },
-  navigationButton: theme => ({
+  navigationButton: (theme) => ({
     flexDirection: "row",
     alignItems: "center",
     padding: 12,
     backgroundColor: theme.colors.G1,
     width: "49%",
-    borderRadius: 8
+    borderRadius: 8,
   }),
-  navigationButtonText: theme => ({
+  navigationButtonText: (theme) => ({
     color: theme.colors.G6,
     fontSize: 16,
-    marginLeft: 8
+    marginLeft: 8,
   }),
-  safeArea: theme => ({
+  safeArea: (theme) => ({
     backgroundColor: theme.colors.Black,
-    flex: 1
+    flex: 1,
   }),
-  svgContainer: theme => ({
+  svgContainer: (theme) => ({
     width: 46,
     height: 46,
     backgroundColor: theme.colors.PureWhite,
     borderRadius: 6,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 4
+    marginRight: 4,
   }),
-  alertContainer: theme => ({
+  alertContainer: (theme) => ({
     borderRadius: 8,
     marginTop: 4,
     padding: 4,
     flexDirection: "row",
     alignItems: "center",
-    width: "100%"
+    width: "100%",
   }),
-  alertText: theme => ({
+  alertText: (theme) => ({
     fontSize: 12,
-    flex: 1
+    flex: 1,
   }),
-  photoContainer: theme => ({
+  photoContainer: (theme) => ({
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 2,
     borderColor: theme.colors.G3,
     borderStyle: "dashed",
     flex: 1,
-    borderRadius: 12
+    borderRadius: 12,
   }),
-  tip: theme => ({
+  tip: (theme) => ({
     width: "100%",
     padding: 4,
-    background: "lightblue"
+    background: "lightblue",
   }),
-  tipContainer: theme => ({ backgroundColor: theme.colors.Blue1 }),
-  tipText: theme => ({
-    color: theme.colors.Blue3
+  tipContainer: (theme) => ({ backgroundColor: theme.colors.Blue1 }),
+  tipText: (theme) => ({
+    color: theme.colors.Blue3,
   }),
-  warning: theme => ({
+  warning: (theme) => ({
     width: "100%",
     padding: 4,
-    background: "gold"
+    background: "gold",
   }),
-  warningContainer: theme => ({
-    backgroundColor: theme.colors.Yellow1
+  warningContainer: (theme) => ({
+    backgroundColor: theme.colors.Yellow1,
   }),
-  warningText: theme => ({
-    color: theme.colors.Yellow3
-  })
+  warningText: (theme) => ({
+    color: theme.colors.Yellow3,
+  }),
 });
 
 export default withTheme(PromptScreen);

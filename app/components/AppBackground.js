@@ -4,7 +4,7 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
-  View
+  View,
 } from "react-native";
 import Spacer from "./styleComponents/Spacer";
 import NavigationButtons from "./NavigationButtons";
@@ -14,9 +14,17 @@ const AppBackground = ({ theme, children, hasNavigationButtons }) => (
   <SafeAreaView style={styles.safeArea(theme)}>
     <ImageBackground
       source={require("../assets/AppBackground.png")}
-      style={[styles.scroll, { resizeMode: "repeat", height: "100%" }]}
+      style={[
+        styles.scroll,
+        {
+          resizeMode: "repeat",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+        },
+      ]}
     >
-      <View style={styles.scroll}>
+      <View style={[styles.scroll, { maxWidth: "768px" }]}>
         <ScrollView
           style={[styles.scroll]}
           contentContainerStyle={{ flexGrow: 1 }}
@@ -33,12 +41,19 @@ const AppBackground = ({ theme, children, hasNavigationButtons }) => (
 );
 
 const styles = StyleSheet.create({
-  safeArea: theme => ({
+  safeArea: (theme) => ({
     flex: 1,
     flexDirection: "column",
-    backgroundColor: theme.colors.BGBeige
+    backgroundColor: theme.colors.BGBeige,
+    minHeight: "100%",
+    minWidth: "100%",
+    justifyContent: "center",
   }),
-  scroll: { flexDirection: "column", flex: 1, height: "100%" }
+  scroll: {
+    flexDirection: "column",
+    // flex: 1,
+    height: "100%",
+  },
 });
 
 export default withTheme(AppBackground);

@@ -1,19 +1,16 @@
-import React, { useContext } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { withTheme } from "react-native-elements";
-import AppContext from "../../state/AppContext";
 import HomePrompt from "./HomePrompt";
 import usePrompts from "../../hooks/prompts";
 
 function UnlockedPromptsContainer({ theme }) {
-  const { app } = useContext(AppContext);
-  // const { prompts } = app;
   const { unlockedPrompts } = usePrompts();
-
+  console.log("unlockedPrompts", unlockedPrompts);
   return (
     <View style={styles.container(theme)}>
       <View style={styles.promptsScroll(theme)}>
-        {unlockedPrompts.map(prompt => (
+        {unlockedPrompts?.results?.map((prompt) => (
           <HomePrompt key={prompt?.key} prompt={prompt} />
         ))}
       </View>
@@ -23,15 +20,15 @@ function UnlockedPromptsContainer({ theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  container: theme => ({
+  container: () => ({
     position: "relative",
-    height: "auto"
+    height: "auto",
   }),
-  promptsScroll: theme => ({
+  promptsScroll: () => ({
     width: "100%",
     flex: 1,
-    flexDirection: "column"
-  })
+    flexDirection: "column",
+  }),
 });
 
 export default withTheme(UnlockedPromptsContainer);
