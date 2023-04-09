@@ -4,15 +4,15 @@ import moment from "moment";
 export const allSettings = [
   {
     title: "login settings",
-    settings: [{ title: "email", inputs: [{ name: "email", type: "text" }] }]
+    settings: [{ title: "email", inputs: [{ name: "email", type: "text" }] }],
   },
   {
     title: "baby",
-    settings: [{ title: "baby name, birthdate" }]
+    settings: [{ title: "baby name, birthdate" }],
   },
   {
     title: "support",
-    settings: [{ title: "news" }, { title: "help" }, { title: "inquiries" }]
+    settings: [{ title: "news" }, { title: "help" }, { title: "inquiries" }],
   },
   {
     title: "app settings",
@@ -20,8 +20,8 @@ export const allSettings = [
       { title: "sharing" },
       { title: "notifications" },
       { title: "language" },
-      { title: "cache settings" }
-    ]
+      { title: "cache settings" },
+    ],
   },
   {
     title: "app info",
@@ -29,9 +29,9 @@ export const allSettings = [
       { title: "terms of use" },
       { title: "privacy policy" },
       { title: "dingdong baby terms of service" },
-      { title: "legal information" }
-    ]
-  }
+      { title: "legal information" },
+    ],
+  },
 ];
 
 export const initialApp = {
@@ -48,9 +48,8 @@ export const initialApp = {
       hashtags: [],
       warning:
         "Ride your pet ride it irig did id i didn't even know that holy guacamoe",
-      tip:
-        "Ride your pet ride it irig did id i didn't even know that holy guacamoeRide your pet ride it irig did id i didn't even know that holy guacamoe",
-      difficulty: 2
+      tip: "Ride your pet ride it irig did id i didn't even know that holy guacamoeRide your pet ride it irig did id i didn't even know that holy guacamoe",
+      difficulty: 2,
     },
     {
       id: 2,
@@ -60,9 +59,8 @@ export const initialApp = {
       captions: ["I traine very day lol"],
       hashtags: ["muscle", "train", "yoyo"],
       warning: "MUSCLEEEEEEEEEE MUSCLE MUCLSE MUSLCEM MULSCEL",
-      tip:
-        "Ride your pet ride it irig did id i didn't even know that holy guacamoe",
-      difficulty: 1
+      tip: "Ride your pet ride it irig did id i didn't even know that holy guacamoe",
+      difficulty: 1,
     },
     {
       id: 3,
@@ -73,7 +71,7 @@ export const initialApp = {
       hashtags: [],
       warning: "",
       tip: "",
-      difficulty: 2
+      difficulty: 2,
     },
     {
       id: 4,
@@ -82,12 +80,12 @@ export const initialApp = {
       emoji: `🏇`,
       captions: [
         "GRANDMA COULD MAKE BETTER FOOD THAN THIS",
-        "Mom I told you more sugar. What is this?!"
+        "Mom I told you more sugar. What is this?!",
       ],
       hashtags: [],
       warning: "",
       tip: "",
-      difficulty: 2
+      difficulty: 2,
     },
     {
       id: 5,
@@ -98,27 +96,69 @@ export const initialApp = {
       hashtags: [],
       warning: "",
       tip: "",
-      difficulty: 2
-    }
+      difficulty: 2,
+    },
   ],
   lockedPrompts: [
     {
       id: 6,
       name: "Are you okay?",
       emoji: "😷",
-      difficulty: 1
+      difficulty: 1,
     },
     {
       id: 7,
       name: "Chaotic cute",
       emoji: "🧹",
-      difficulty: 2
+      difficulty: 2,
     },
     {
       id: 8,
       name: "Wheres baby",
       emoji: "👀",
-      difficulty: 2
-    }
-  ]
+      difficulty: 2,
+    },
+  ],
+};
+
+export const initialUser = {
+  _id: "",
+  dateSignedUp: moment(),
+  email: "",
+  password: "",
+  credits: 0,
+  lastUpdated: moment(),
+  completedPromptIds: [
+    // {
+    //   _id: "",
+    //   id: "",
+    //   uri: "",
+    //   dateUploaded: "",
+    //   dateComplete: "",
+    //   caption: "",
+    //   selectedAsset: "",
+    //   assets: [
+    //     {
+    //       _id: "",
+    //       id: "",
+    //       uri: "",
+    //       width: 0,
+    //       height: 0,
+    //       fileSize: 0,
+    //       type: "",
+    //       fileName: "",
+    //     },
+    //   ],
+    // },
+  ],
+  unlockedPromptIds: [], // array of photo ids
+  sharingLinks: [],
+  name: "",
+  gender: "",
+  babies: [{ name: "", gender: "", dob: "" }],
+  uid: "",
+  onboarding: {
+    viewedIntro: false,
+  },
+  prioritizedPrompts: [],
 };

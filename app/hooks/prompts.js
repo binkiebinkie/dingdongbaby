@@ -4,37 +4,63 @@ import {
   readUnlockedPrompts,
   readLockedPrompts,
   readUnlockedPrompt,
+  readCompletedPrompts,
 } from "../api/prompts";
 import prompts from "../prompts.json";
-import UserContext from "../state/UserContext";
+import AppContext from "../state/AppContext";
+// import UserContext from "../state/UserContext";
 import useListState from "./list";
 import useUser from "./user";
 // import { useUserContext } from "../state/UserContext";
 
 const usePrompts = () => {
-  const { userState, setUserState } = useContext(UserContext);
-  const { updateUserArray } = useUser();
+  const { userState, setUserState, updateUserArray } = useUser();
+  const [selectedPrompt, setSelectedPrompt] = useState({});
+  const { selectedPromptId } = useContext(AppContext);
   const {
     listState: unlockedPrompts,
     setListState: setUnlockedPrompts,
     fetchListState: fetchUnlockedPrompts,
-  } = useListState(null, {
-    create: () => {},
-    read: readUnlockedPrompts,
-    update: () => {},
-    delete: () => {},
-  });
+  } = useListState(
+    null,
+    {
+      create: () => {},
+      read: readUnlockedPrompts,
+      update: () => {},
+      delete: () => {},
+    },
+    "unlockedPromptIds"
+  );
 
   const {
     listState: lockedPrompts,
     setListState: setLockedPrompts,
     fetchListState: fetchLockedPrompts,
-  } = useListState(null, {
-    create: () => {},
-    read: readLockedPrompts,
-    update: () => {},
-    delete: () => {},
-  });
+  } = useListState(
+    null,
+    {
+      create: () => {},
+      read: readLockedPrompts,
+      update: () => {},
+      delete: () => {},
+    },
+    "completedPromptIds"
+  );
+
+  const {
+    listState: completedPrompts,
+    setListState: setCompletedPrompts,
+    fetchListState: fetchCompletedPrompts,
+  } = useListState(
+    null,
+    {
+      create: () => {},
+      read: readCompletedPrompts,
+      update: () => {},
+      delete: () => {},
+    },
+    "completedPromptIds"
+  );
 
   // TODO: API handles this
   // const fetchRandomPrompt = (diff) => {
@@ -89,7 +115,7 @@ const usePrompts = () => {
     try {
       const { data } = await readUnlockedPrompt(id);
       console.log(data);
-      return data?.id;
+      return data;
     } catch (err) {
       console.error(err);
     }
@@ -107,19 +133,42 @@ const usePrompts = () => {
   // useEffect(getUnlockedPrompts, [userState.unlockedPromptIds]);
 
   const allPromptsCount = prompts.length;
-  const completedPrompts = prompts.slice(0, 50);
+  // const completedPrompts = prompts.slice(0, 50);
+
+  // useEffect(() => {
+  //   console.log("ahh fetch it!!", userState?._id);
+  //   if (!!userState?._id) {
+  //     fetchUnlockedPrompts();
+  //   }
+  // }, [userState.unlockedPromptIds, userState?._id]);
+  // useEffect(() => {
+  //   fetchLockedPrompts();
+  // }, []);
+  const fetchSelectedPrompt = async () => {
+    try {
+      console.log("fetching");
+      const prompt = await getPromptById(selectedPromptId);
+      console.log("prompt", prompt);
+      setSelectedPrompt(prompt);
+    } catch (err) {
+      console.error("Error fetching selected prompt", err);
+    }
+  };
 
   useEffect(() => {
-    console.log("ahh fetch it!!");
-    fetchUnlockedPrompts();
-  }, [userState.unlockedPromptIds, userState?._id]);
-  useEffect(() => {
-    fetchLockedPrompts();
-  }, []);
+    if (!!selectedPromptId) {
+      fetchSelectedPrompt();
+    } else {
+      setSelectedPrompt({});
+    }
+  }, [selectedPromptId]);
+
+  console.log("selectedPromptselectedPrompt", selectedPrompt);
 
   return {
     allPromptsCount,
     getPromptById,
+    selectedPrompt,
     completedPrompts,
     lockedPrompts,
     unlockedPrompts,

@@ -399,11 +399,11 @@ PODS:
     - React-jsi (= 0.70.5)
     - React-logger (= 0.70.5)
     - React-perflogger (= 0.70.5)
-  - RNCAsyncStorage (1.17.12):
+  - RNCAsyncStorage (1.18.1):
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNDeviceInfo (10.4.0):
+  - RNDeviceInfo (10.5.1):
     - React-Core
   - RNGestureHandler (2.8.0):
     - React-Core
@@ -693,9 +693,9 @@ SPEC CHECKSUMS:
   React-RCTVibration: 8e5c8c5d17af641f306d7380d8d0fe9b3c142c48
   React-runtimeexecutor: 7401c4a40f8728fd89df4a56104541b760876117
   ReactCommon: c9246996e73bf75a2c6c3ff15f1e16707cdc2da9
-  RNCAsyncStorage: 09fc8595e6d6f6d5abf16b23a56b257d9c6b7c5b
+  RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDeviceInfo: 749f2e049dcd79e2e44f134f66b73a06951b5066
+  RNDeviceInfo: fb81318c9cd5ebe30ebf12bcd046d818c87f9b53
   RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
   RNLocalize: d4b8af4e442d4bcca54e68fc687a2129b4d71a81
   RNReanimated: 2a91e85fcd343f8af3c58d3425b99fdd285590a5

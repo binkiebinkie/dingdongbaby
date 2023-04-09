@@ -11,7 +11,7 @@ import useUser from "../hooks/user";
 function PhotoUploadButton({
   theme,
   image,
-  selectedPrompt,
+  selectedPromptId,
   captions,
   navigation,
 }) {
@@ -41,9 +41,9 @@ function PhotoUploadButton({
     const { didCancel, assets } = result;
 
     if (!didCancel) {
-      updateCompletedPrompts(selectedPrompt, {
+      updateCompletedPrompts(selectedPromptId, {
         ...assets[0],
-        promptId: selectedPrompt,
+        promptId: selectedPromptId,
         dateUploaded: moment().format("DD MMM YYYY"),
         caption: captions[0] || "",
       });

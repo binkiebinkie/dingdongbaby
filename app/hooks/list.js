@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { uniqBy } from "lodash";
 import useTranslation from "./translations";
 import { api } from "../api";
+import useUser from "./user";
 
 const ASCENDING = 1;
 const DESCENDING = 1;
@@ -37,7 +38,8 @@ const DEFAULT_CRUD = {
   delete: async () => {},
 };
 
-const useListState = (defaultState, CRUD = DEFAULT_CRUD) => {
+const useListState = (defaultState, CRUD = DEFAULT_CRUD, userStateKey) => {
+  const { userState } = useUser();
   const [listState, setListState] = useState(
     defaultState || DEFAULT_STATE_LIST
   );
@@ -51,6 +53,7 @@ const useListState = (defaultState, CRUD = DEFAULT_CRUD) => {
     page = listState.page,
     page_size = DEFAULT_API_SIZE
   ) => {
+    if (!userState?._id) return;
     setListState((prevState) => ({ ...prevState, loading: true }));
     try {
       const { next, useNext, filters, sortingOrder } = listState;
@@ -210,10 +213,14 @@ const useListState = (defaultState, CRUD = DEFAULT_CRUD) => {
     }));
   };
 
-  useEffect(
-    () => fetchListState(),
-    [listState?.filters, listState?.sortingOrder]
-  );
+  useEffect(() => {
+    if (userState?._id) fetchListState();
+  }, [
+    listState?.filters,
+    listState?.sortingOrder,
+    userState?._id,
+    userState[userStateKey],
+  ]);
 
   return {
     listState,

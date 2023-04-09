@@ -4,19 +4,19 @@ import { withTheme } from "react-native-elements";
 import HomePrompt from "./HomePrompt";
 import usePrompts from "../../hooks/prompts";
 
-function UnlockedPromptsContainer({ theme }) {
+const UnlockedPromptsContainer = ({ theme }) => {
   const { unlockedPrompts } = usePrompts();
-  console.log("unlockedPrompts", unlockedPrompts);
+
   return (
     <View style={styles.container(theme)}>
       <View style={styles.promptsScroll(theme)}>
         {unlockedPrompts?.results?.map((prompt) => (
-          <HomePrompt key={prompt?.key} prompt={prompt} />
+          <HomePrompt key={`${prompt?.key}-${prompt?.id}`} prompt={prompt} />
         ))}
       </View>
     </View>
   );
-}
+};
 
 //rnss
 const styles = StyleSheet.create({

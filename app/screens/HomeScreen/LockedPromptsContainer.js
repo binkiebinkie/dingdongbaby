@@ -3,18 +3,18 @@ import { StyleSheet, View, Text } from "react-native";
 import { withTheme } from "react-native-elements";
 import HomePrompt from "./HomePrompt";
 import UpsellContainer from "../../components/UpsellContainer";
-import UnlockPromptsHeader from "./UnlockPromptsHeader";
+import LockedPromptsHeader from "./LockedPromptsHeader";
 import usePrompts from "../../hooks/prompts";
 
-function UnlockPromptsContainer({ theme }) {
+function LockedPromptsContainer({ theme }) {
   const { lockedPrompts } = usePrompts();
 
   return (
     <View style={styles.container(theme)}>
-      <UnlockPromptsHeader />
+      <LockedPromptsHeader />
       <UpsellContainer />
       <View style={styles.promptsScroll(theme)}>
-        {lockedPrompts.map(prompt => (
+        {lockedPrompts.results?.map((prompt) => (
           <HomePrompt key={prompt.id} prompt={prompt} locked={true} />
         ))}
       </View>
@@ -24,15 +24,15 @@ function UnlockPromptsContainer({ theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  container: theme => ({
+  container: (theme) => ({
     position: "relative",
-    height: "auto"
+    height: "auto",
   }),
-  promptsScroll: theme => ({
+  promptsScroll: (theme) => ({
     width: "100%",
     flex: 1,
-    flexDirection: "column"
-  })
+    flexDirection: "column",
+  }),
 });
 
-export default withTheme(UnlockPromptsContainer);
+export default withTheme(LockedPromptsContainer);

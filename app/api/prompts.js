@@ -13,6 +13,8 @@ export const readLockedPrompts = async (params) =>
 export const assignRandomPromptToUser = async (data) =>
   api.post(`prompts/assign-random-prompt`, data);
 
+// export const readLockedPrompts = async (params) =>
+// api.get(`prompts/unlocked`, { params });
 // export const readMe = (params) => api.get(`users/me`, { params });
 // export const createUser = (data) => api.post(`users/`, data);
 // export const updateUser = (data) => api.patch(`user`, data);

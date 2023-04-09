@@ -18,11 +18,11 @@ import useUser from "../hooks/user";
 //rsf
 function CaptionsScreen({ navigation, theme }) {
   const { updateCompletedPrompt } = useUser();
-  const { selectedPrompt } = useContext(AppContext);
+  const { selectedPromptId } = useContext(AppContext);
   const { getPromptById } = usePrompts();
   const [selectedCaption, setSelectedCaption] = useState(null);
   const [customText, setCustomText] = useState("");
-  const prompt = getPromptById(selectedPrompt);
+  const prompt = getPromptById(selectedPromptId);
   const { id, captions } = prompt;
 
   useEffect(() => {

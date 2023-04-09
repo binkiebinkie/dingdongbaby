@@ -5,15 +5,15 @@ import { withTheme } from "react-native-elements";
 import PhotoCard from "./PhotoCard";
 import moment from "moment";
 import useUser from "../hooks/user";
+import usePrompts from "../hooks/prompts";
 
 function AlbumContainer({ theme }) {
-  const { userState } = useUser();
-  const { completedPrompts } = userState;
-  console.log(completedPrompts);
+  const { unlockedPrompts } = usePrompts();
+  console.log(unlockedPrompts);
   return (
     <View style={styles.container(theme)}>
       <View style={styles.promptsScroll(theme)}>
-        {completedPrompts.map(({ uri, id, dateUploaded, caption }) => (
+        {unlockedPrompts.map(({ uri, id, dateUploaded, caption }) => (
           <PhotoCard
             key={id}
             image={uri}

@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { withTheme } from "react-native-elements";
 import AppBackground from "../../components/AppBackground";
 import UnlockedPromptsContainer from "./UnlockedPromptsContainer";
+import LockedPromptsContainer from "./LockedPromptsContainer";
 import HomeHeader from "./HomeHeader";
 import HomeSettingsContainer from "./HomeSettingsContainer";
 import Spacer from "../../components/styleComponents/Spacer";
@@ -39,7 +40,7 @@ const HomeScreen = ({ navigation, theme }) => {
         {selectedHomeScreen === "prompts" ? (
           <View style={styles.darkContainer(theme)}>
             <UnlockedPromptsContainer />
-            {/* <UnlockPromptsContainer /> */}
+            {/* <LockedPromptsContainer /> */}
           </View>
         ) : (
           <AlbumContainer />

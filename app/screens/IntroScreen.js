@@ -17,10 +17,11 @@ import useTranslation from "../hooks/translations";
 import useUser from "../hooks/user";
 import usePrompts from "../hooks/prompts";
 //rsf
-function IntroScreen({ navigation, route, theme }) {
+function IntroScreen({ navigation }) {
   const { t } = useTranslation();
   const { changeUserOnboarding, userState } = useUser();
   const { addRandomPromptToUser } = usePrompts();
+
   const navigateHome = async () => {
     console.log("pressed");
 
@@ -38,7 +39,7 @@ function IntroScreen({ navigation, route, theme }) {
         await addRandomPromptToUser(3);
       }
 
-      // return navigation.navigate("Home");
+      return navigation.navigate("Home");
     } catch (err) {
       console.error(err);
     }

@@ -11,6 +11,7 @@ const PromptDetails = ({
   isHomePrompt,
   prompt: { name, id, difficulty, emoji, photo },
 }) => {
+  console.log(id);
   const diff = Number(difficulty);
 
   const { getSelectedAssetByPromptId, togglePrioritizedPrompt, userState } =

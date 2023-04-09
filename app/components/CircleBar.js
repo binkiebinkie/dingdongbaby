@@ -1,11 +1,8 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, View, Text } from "react-native";
-
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Image } from "react-native";
 import { withTheme } from "react-native-elements";
 
 const CircleBar = ({ theme, numPromptsComplete, numPrompts }) => {
-  // const ref = useRef(null);
   const [contWidth, setContWidth] = useState(0);
   const [numCircles, setNumCircles] = useState(45);
   const [gradientWidth, setGradientWidth] = useState(
@@ -29,16 +26,14 @@ const CircleBar = ({ theme, numPromptsComplete, numPrompts }) => {
 
   return (
     <View
-      onLayout={e => setContWidth(e.nativeEvent.layout.width)}
+      onLayout={(e) => setContWidth(e.nativeEvent.layout.width)}
       style={styles.circleBarCont(theme)}
     >
       {numPromptsComplete && numPrompts ? (
-        <LinearGradient
-          colors={theme.colors.Gradient}
+        <Image
           style={[styles.gradient(theme), { width: gradientWidth }]}
-          start={[0, 0]}
-          end={[1, 1]}
-        ></LinearGradient>
+          source={require("../assets/Gradient.png")}
+        />
       ) : null}
       {[...Array(numCircles)].map((circle, i) => (
         <View key={`${circle}${i}`} style={styles.circle(theme)}></View>
@@ -49,26 +44,26 @@ const CircleBar = ({ theme, numPromptsComplete, numPrompts }) => {
 
 //rnss
 const styles = StyleSheet.create({
-  circleBarCont: theme => ({
+  circleBarCont: (theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%"
+    width: "100%",
   }),
-  gradient: theme => ({
+  gradient: (theme) => ({
     height: 4,
     borderRadius: 4,
     position: "absolute",
     left: 0,
     top: 0,
     bottom: 0,
-    zIndex: 1000
+    zIndex: 1000,
   }),
-  circle: theme => ({
+  circle: (theme) => ({
     width: 4,
     height: 4,
     backgroundColor: theme.colors.G4,
-    borderRadius: 50
-  })
+    borderRadius: 50,
+  }),
 });
 
 export default withTheme(CircleBar);

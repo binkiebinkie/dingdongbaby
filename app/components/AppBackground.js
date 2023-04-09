@@ -24,7 +24,7 @@ const AppBackground = ({ theme, children, hasNavigationButtons }) => (
         },
       ]}
     >
-      <View style={[styles.scroll, { maxWidth: "768px" }]}>
+      <View style={[styles.scroll, { maxWidth: 768, width: "100%" }]}>
         <ScrollView
           style={[styles.scroll]}
           contentContainerStyle={{ flexGrow: 1 }}

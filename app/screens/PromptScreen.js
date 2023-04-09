@@ -17,25 +17,29 @@ import { helpers } from "../helpers/helpers";
 import usePrompts from "../hooks/prompts";
 import Tip from "../components/styleComponents/Tip";
 import useUser from "../hooks/user";
+import AppLoading from "expo-app-loading";
 
 //rsf
 function PromptScreen({ navigation, theme }) {
-  const { getPromptById } = usePrompts();
   const { userState, getSelectedAssetByPromptId } = useUser();
-  const { selectedPrompt, setSelectedPrompt } = useContext(AppContext);
+  const { selectedPrompt } = usePrompts();
+  const { selectedPromptId, setSelectedPromptId } = useContext(AppContext);
   const { unlockedPromptIds } = userState;
 
+  console.log("selectedPromptselectedPrompt", selectedPrompt);
   const image = getSelectedAssetByPromptId(selectedPrompt);
-  const prompt = getPromptById(selectedPrompt);
+  if (!selectedPrompt?.id) return <AppLoading />;
 
-  if (!prompt) return;
-  const { desc, warning, tip, id, captions } = prompt;
-  const promptIndex = unlockedPromptIds?.findIndex((p) => p === selectedPrompt);
+  const { desc, warning, tip, id, captions } = selectedPrompt;
+
+  const promptIndex = unlockedPromptIds?.findIndex(
+    (p) => p === selectedPromptId
+  );
 
   const navigateToPrompt = (indexChange) => {
     const otherPrompt = unlockedPromptIds[promptIndex + indexChange];
     if (otherPrompt) {
-      setSelectedPrompt(otherPrompt.id);
+      setSelectedPromptId(otherPrompt.id);
     }
   };
 
@@ -61,7 +65,7 @@ function PromptScreen({ navigation, theme }) {
           <Spacer height={12} width="100%" />
           <View style={styles.cardContainer(theme)}>
             <View style={styles.detailsContainer(theme)}>
-              <PromptDetails prompt={prompt} />
+              <PromptDetails prompt={selectedPrompt} />
             </View>
             <LinearGradient
               colors={theme.colors.Gradient}
@@ -73,7 +77,7 @@ function PromptScreen({ navigation, theme }) {
             <PhotoUploadButton
               image={image}
               captions={captions}
-              selectedPrompt={selectedPrompt}
+              selectedPromptId={selectedPromptId}
               navigation={navigation}
             />
           </View>

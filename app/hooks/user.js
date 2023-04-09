@@ -1,52 +1,43 @@
-import { useEffect, useContext } from "react";
-import { storeUserData, storeToken, getToken } from "../storage";
+import { useEffect, useContext, useState } from "react";
+import { getToken } from "../storage";
 import moment from "moment";
 import { helpers } from "../helpers/helpers";
 import UserContext from "../state/UserContext";
-import { authenticateDevice } from "../api";
+import { authenticateDevice } from "../api/auth";
 import { readMe, updateUserOnboarding } from "../api/users";
 
 // on initialize, fetch user with token
 // if no token, try to refresh with just device id
 
-const initialUser = {
-  _id: "",
-  dateSignedUp: moment(),
-  email: "",
-  password: "",
-  credits: 0,
-  lastUpdated: moment(),
-  completedPrompts: [],
-  unlockedPrompts: [], // array of photo ids
-  sharingLinks: [],
-  name: "",
-  gender: "",
-  babies: [{ name: "", gender: "", dob: "" }],
-  uid: "",
-  onboarding: {
-    viewedIntro: false,
-  },
-};
-
 const useUser = () => {
-  const { userState, setUserState } = useContext(UserContext);
+  const [userState, setUserState] = useState({});
+
+  const authDevice = async () => {
+    try {
+      const user = await authenticateDevice();
+      if (!!user) {
+        setUserState(user);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchUserData = async () => {
     try {
       const token = await getToken();
-      console.log("fetchingToken", token);
       if (!!token && token !== "undefined") {
-        const { data } = await readMe(token);
-        console.log("{data}", data);
-        if (!!data) {
-          setUserState(data);
+        try {
+          const { data } = await readMe(token);
+          if (!!data) {
+            setUserState(data);
+          }
+        } catch (err) {
+          console.error(err);
+          await authDevice();
         }
       } else {
-        const resp = await authenticateDevice();
-        console.log("respsresp", resp);
-        const { user } = resp;
-        console.log("fetchung user", user);
-        setUserState(user);
+        await authDevice();
       }
     } catch (err) {
       console.error(err);
@@ -66,40 +57,42 @@ const useUser = () => {
 
   const updateCompletedPrompts = (promptId, asset) => {
     setUserState((prevState) => {
-      const { completedPrompts } = prevState;
+      const { completedPromptIds } = prevState;
 
-      const completedPromptsIndex = completedPrompts.indexOf(
+      const completedPromptIdsIndex = completedPromptIds.indexOf(
         (p) => p.id === promptId
       );
 
       let newCompletedPrompt = {};
-      if (completedPromptsIndex > -1) {
-        const newCompletedPrompts = [...completedPrompts];
+      if (completedPromptIdsIndex > -1) {
+        const newCompletedPrompts = [...completedPromptIds];
         const thisAssetIndex = newCompletedPrompts[
-          completedPromptsIndex
+          completedPromptIdsIndex
         ].assets?.indexOf((a) => a.assetId === asset.assetId);
 
         if (thisAssetIndex > -1) {
-          const assets = [...newCompletedPrompts[completedPromptsIndex].assets];
+          const assets = [
+            ...newCompletedPrompts[completedPromptIdsIndex].assets,
+          ];
           assets[thisAssetIndex] = asset;
-          newCompletedPrompts[completedPromptsIndex] = {
-            ...newCompletedPrompts[completedPromptsIndex],
+          newCompletedPrompts[completedPromptIdsIndex] = {
+            ...newCompletedPrompts[completedPromptIdsIndex],
             selectedAsset: asset.assetId,
             assets,
           };
         } else {
-          newCompletedPrompts[completedPromptsIndex] = {
-            ...newCompletedPrompts[completedPromptsIndex],
+          newCompletedPrompts[completedPromptIdsIndex] = {
+            ...newCompletedPrompts[completedPromptIdsIndex],
             selectedAsset: asset.assetId,
             assets: [
-              ...newCompletedPrompts[completedPromptsIndex].assets,
+              ...newCompletedPrompts[completedPromptIdsIndex].assets,
               asset,
             ],
           };
         }
         return {
           ...prevState,
-          completedPrompts: newCompletedPrompts,
+          completedPromptIds: newCompletedPrompts,
         };
       } else {
         newCompletedPrompt = {
@@ -112,7 +105,10 @@ const useUser = () => {
 
         return {
           ...prevState,
-          completedPrompts: [...prevState.completedPrompts, newCompletedPrompt],
+          completedPromptIds: [
+            ...prevState.completedPromptIds,
+            newCompletedPrompt,
+          ],
         };
       }
     });
@@ -120,16 +116,16 @@ const useUser = () => {
 
   const updateCompletedPrompt = (key, value, id) => {
     let newUser = { ...userState };
-    const thisPromptIndex = newUser?.completedPrompts.findIndex(
+    const thisPromptIndex = newUser?.completedPromptIds.findIndex(
       (chal) => chal.promptId === id
     );
-    newUser.completedPrompts[thisPromptIndex][key] = value;
+    newUser.completedPromptIds[thisPromptIndex][key] = value;
 
     setUserState(newUser);
   };
 
   const getCompletedPromptByPromptId = (promptId) => {
-    const completedPrompt = userState?.completedPrompts?.find(
+    const completedPrompt = userState?.completedPromptIds?.find(
       (p) => p.promptId === promptId
     );
     return !!completedPrompt ? completedPrompt : {};
@@ -208,21 +204,16 @@ const useUser = () => {
 
   useEffect(() => {
     const { _id } = userState || {};
-    console.log(userState);
     if (!_id) {
       fetchUserData();
     }
   }, [userState]);
 
-  // useEffect(() => {
-  //   console.log("i keep firing");
-  //   fetchUserData();
-  // }, []);
-
   return {
     updateUserArray,
     updateUserKeyValue,
     userState,
+    setUserState,
     updateCompletedPrompt,
     fetchUserData,
     updateCompletedPrompts,

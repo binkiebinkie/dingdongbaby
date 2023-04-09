@@ -7,14 +7,15 @@ import PromptDetails from "../../components/PromptDetails";
 import { withTheme } from "react-native-elements";
 
 function HomePrompt({ theme, prompt, locked }) {
-  const { setSelectedPrompt } = useContext(AppContext);
+  const { setSelectedPromptId } = useContext(AppContext);
   const navigation = useNavigation();
 
   const navigateToPrompt = () => {
-    setSelectedPrompt(prompt.id);
+    setSelectedPromptId(prompt.id);
     return navigation.navigate("Prompt");
   };
   // TODO: refactor color of difficulty
+
   return (
     <Pressable onPress={() => (locked ? null : navigateToPrompt())}>
       <View style={styles.container(theme)}>

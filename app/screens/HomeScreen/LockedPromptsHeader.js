@@ -5,7 +5,7 @@ import { withTheme } from "react-native-elements";
 import Locked from "../../assets/svgs/Locked";
 import CircleBar from "../../components/CircleBar";
 
-function UnlockPromptsHeader({ navigation, theme }) {
+function LockedPromptsHeader({ navigation, theme }) {
   const navigateToPrompt = () => {
     console.log("navigate to prompt", navigation);
   };
@@ -23,40 +23,40 @@ function UnlockPromptsHeader({ navigation, theme }) {
 
 //rnss
 const styles = StyleSheet.create({
-  promptsCont: theme => ({
+  promptsCont: (theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-start"
+    alignItems: "flex-start",
   }),
-  cont: theme => ({
+  cont: (theme) => ({
     position: "relative",
     width: "100%",
     marginTop: 38,
-    marginBottom: 12
+    marginBottom: 12,
   }),
-  promptsFont: theme => ({
+  promptsFont: (theme) => ({
     fontSize: 18,
     fontFamily: "SFCompactRoundedBold",
     textTransform: "lowercase",
-    color: theme.colors.G6
+    color: theme.colors.G6,
   }),
-  checkCont: theme => ({
+  checkCont: (theme) => ({
     width: 16,
     height: 16,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: theme.colors.G2,
     borderRadius: 50,
-    marginRight: 8
+    marginRight: 8,
   }),
-  checkCount: theme => ({
+  checkCount: (theme) => ({
     fontSize: 14,
-    color: theme.colors.G6
+    color: theme.colors.G6,
   }),
-  totalCont: theme => ({
+  totalCont: (theme) => ({
     flexDirection: "row",
-    alignItems: "center"
-  })
+    alignItems: "center",
+  }),
 });
 
-export default withTheme(UnlockPromptsHeader);
+export default withTheme(LockedPromptsHeader);
