@@ -1,0 +1,81 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/AppBackground.png",
+      "sha1": "7dac030130f9226e33980977919c2ac15293ca39"
+    },
+    {
+      "path": "src/assets/Gradient.png",
+      "sha1": "0f1dbad3a00dfd11c489b8111e74aa1028bc259b"
+    },
+    {
+      "path": "src/assets/placeholders/monk1.png",
+      "sha1": "c9462c8199b045c2dcefb319afc3e50c0ed62148"
+    },
+    {
+      "path": "src/assets/placeholders/monk2.png",
+      "sha1": "93da4415675487911a7c551820f3ca70be00e24b"
+    },
+    {
+      "path": "src/assets/placeholders/monk3.png",
+      "sha1": "f4daa43d248c03d0ea6e083233f85e4b78f082b8"
+    },
+    {
+      "path": "src/assets/placeholders/monk4.png",
+      "sha1": "913b5077764addb4716bed6970c5239624f12055"
+    },
+    {
+      "path": "src/assets/projectile.png",
+      "sha1": "bb81ed28223353bc9b3552088707dccd03dd3bbb"
+    },
+    {
+      "path": "src/assets/svgs/Album.js",
+      "sha1": "1df693c23101ee1efa5a9f1b19d06105832e00d6"
+    },
+    {
+      "path": "src/assets/svgs/AlbumFilled.js",
+      "sha1": "5a149f44f1d85ec2ae0af58d24d86ee1d2caa639"
+    },
+    {
+      "path": "src/assets/svgs/Alert.js",
+      "sha1": "694e83a5bad0b265d4845f2bc1ca1b947d5fb9dd"
+    },
+    {
+      "path": "src/assets/svgs/Camera.js",
+      "sha1": "5250590d2f6af519d0724f8d55251193f93f19c7"
+    },
+    {
+      "path": "src/assets/svgs/CameraFilled.js",
+      "sha1": "5c173e468b9e985d9867824ae0e777dd14254b14"
+    },
+    {
+      "path": "src/assets/svgs/Checkmark.js",
+      "sha1": "5943a79da0c63b3211c282c9f0f3ebf9160dc4bb"
+    },
+    {
+      "path": "src/assets/svgs/ChevronLeft.js",
+      "sha1": "70a9ad7e3f8f75927f44d288c0f7c8f22dfa83e3"
+    },
+    {
+      "path": "src/assets/svgs/Lightbulb.js",
+      "sha1": "9a71442f4ccca10d740e3e8a0e179ed26c6a6359"
+    },
+    {
+      "path": "src/assets/svgs/Locked.js",
+      "sha1": "8b6fb51f022a94ab2aad1cd6c0c3ebd83000f34c"
+    },
+    {
+      "path": "src/assets/svgs/Star.js",
+      "sha1": "0064576cdcab3aca67ec1ec91de0d61abcec7a00"
+    },
+    {
+      "path": "src/assets/svgs/XClose.js",
+      "sha1": "23c5900d86faa9f7ea58c25a5bbfc1b7e2fa32fc"
+    },
+    {
+      "path": "src/assets/svgs/settingsBaby.js",
+      "sha1": "68a9376aaae75a1173948ccd7771b60f332e237e"
+    }
+  ]
+}

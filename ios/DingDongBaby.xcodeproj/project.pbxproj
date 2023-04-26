@@ -7,32 +7,70 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12C29887047F4471A6A7FE7A /* Locked.js in Resources */ = {isa = PBXBuildFile; fileRef = 2828E1E330C048AE83A21C74 /* Locked.js */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1C6620B7AFC1412786BBE24B /* monk4.png in Resources */ = {isa = PBXBuildFile; fileRef = FCEC487538314DB7B662968D /* monk4.png */; };
+		1F17B005FB634791B41911C8 /* Alert.js in Resources */ = {isa = PBXBuildFile; fileRef = 4AB629ABAC154A19BB0D68A1 /* Alert.js */; };
+		1F887B4FE02345C49AD5285B /* Checkmark.js in Resources */ = {isa = PBXBuildFile; fileRef = 8A48728CD1934D62B56F3546 /* Checkmark.js */; };
+		3CAEE7AC564447B786D7A1CE /* XClose.js in Resources */ = {isa = PBXBuildFile; fileRef = C4B12E73AC324DCA989D9AC7 /* XClose.js */; };
+		3CB77EE5620540E2B5ED93BD /* ChevronLeft.js in Resources */ = {isa = PBXBuildFile; fileRef = C7CBC4837C6042ED874E420A /* ChevronLeft.js */; };
+		3D58AF737642469BA0619FE7 /* monk2.png in Resources */ = {isa = PBXBuildFile; fileRef = 35CA25D431064A3893212A7B /* monk2.png */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		4292E4B3BBD8463C8136867D /* Camera.js in Resources */ = {isa = PBXBuildFile; fileRef = D482820F0EE94840AA472408 /* Camera.js */; };
+		68491443F76943D690CABE19 /* AlbumFilled.js in Resources */ = {isa = PBXBuildFile; fileRef = 19C180E459FB4D6F90E19905 /* AlbumFilled.js */; };
+		69A5E395B2CB4913A925D32E /* Album.js in Resources */ = {isa = PBXBuildFile; fileRef = 444247649B26422DBDD77111 /* Album.js */; };
+		792CE04E171E462A91FD364B /* AppBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A538A264AC7C48CEB90E791A /* AppBackground.png */; };
 		8581DEF7AEFC4ED4A0278E60 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D415FBDD6D048C082DAE7C8 /* noop-file.swift */; };
+		8A49EAA501994E9884299962 /* projectile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3EE88DE9AE4883A1E1AE65 /* projectile.png */; };
 		96905EF65AED1B983A6B3ABC /* libPods-DingDongBaby.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-DingDongBaby.a */; };
+		A05AC55F1A9E4612952D832A /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 730F93468F6F4C5BA95F983A /* Gradient.png */; };
+		A9F32A2602D34F8DBCEF7774 /* monk1.png in Resources */ = {isa = PBXBuildFile; fileRef = DD1076965B894EBFA1A26F4B /* monk1.png */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		C7DAF6C50E294D1F851450C5 /* settingsBaby.js in Resources */ = {isa = PBXBuildFile; fileRef = 895C12EEA04642C1B4B169A4 /* settingsBaby.js */; };
+		C90136422B33453EB86558E4 /* Lightbulb.js in Resources */ = {isa = PBXBuildFile; fileRef = 1172C091097E4143B6E4BC83 /* Lightbulb.js */; };
+		D373ADE5C05743B9AD33ABE3 /* CameraFilled.js in Resources */ = {isa = PBXBuildFile; fileRef = B4BC707302874174B4BF8FB8 /* CameraFilled.js */; };
+		D5D01A9493954C378BC68B30 /* Star.js in Resources */ = {isa = PBXBuildFile; fileRef = 46DAADDAAB944DCFB382EFAB /* Star.js */; };
+		F0AB11A9BA2D454C901028B2 /* monk3.png in Resources */ = {isa = PBXBuildFile; fileRef = 816E3630D6BC4AEAA9F33A1D /* monk3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		1172C091097E4143B6E4BC83 /* Lightbulb.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Lightbulb.js; path = ../src/assets/svgs/Lightbulb.js; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* DingDongBaby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DingDongBaby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DingDongBaby/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = DingDongBaby/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DingDongBaby/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DingDongBaby/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DingDongBaby/main.m; sourceTree = "<group>"; };
+		19C180E459FB4D6F90E19905 /* AlbumFilled.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AlbumFilled.js; path = ../src/assets/svgs/AlbumFilled.js; sourceTree = "<group>"; };
+		2828E1E330C048AE83A21C74 /* Locked.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Locked.js; path = ../src/assets/svgs/Locked.js; sourceTree = "<group>"; };
+		35CA25D431064A3893212A7B /* monk2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = monk2.png; path = ../src/assets/placeholders/monk2.png; sourceTree = "<group>"; };
+		3C3EE88DE9AE4883A1E1AE65 /* projectile.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = projectile.png; path = ../src/assets/projectile.png; sourceTree = "<group>"; };
+		444247649B26422DBDD77111 /* Album.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Album.js; path = ../src/assets/svgs/Album.js; sourceTree = "<group>"; };
+		46DAADDAAB944DCFB382EFAB /* Star.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Star.js; path = ../src/assets/svgs/Star.js; sourceTree = "<group>"; };
+		4AB629ABAC154A19BB0D68A1 /* Alert.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Alert.js; path = ../src/assets/svgs/Alert.js; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-DingDongBaby.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DingDongBaby.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-DingDongBaby.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DingDongBaby.debug.xcconfig"; path = "Target Support Files/Pods-DingDongBaby/Pods-DingDongBaby.debug.xcconfig"; sourceTree = "<group>"; };
 		6D415FBDD6D048C082DAE7C8 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "DingDongBaby/noop-file.swift"; sourceTree = "<group>"; };
+		730F93468F6F4C5BA95F983A /* Gradient.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Gradient.png; path = ../src/assets/Gradient.png; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-DingDongBaby.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DingDongBaby.release.xcconfig"; path = "Target Support Files/Pods-DingDongBaby/Pods-DingDongBaby.release.xcconfig"; sourceTree = "<group>"; };
+		816E3630D6BC4AEAA9F33A1D /* monk3.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = monk3.png; path = ../src/assets/placeholders/monk3.png; sourceTree = "<group>"; };
+		895C12EEA04642C1B4B169A4 /* settingsBaby.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = settingsBaby.js; path = ../src/assets/svgs/settingsBaby.js; sourceTree = "<group>"; };
+		8A48728CD1934D62B56F3546 /* Checkmark.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Checkmark.js; path = ../src/assets/svgs/Checkmark.js; sourceTree = "<group>"; };
+		A538A264AC7C48CEB90E791A /* AppBackground.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AppBackground.png; path = ../src/assets/AppBackground.png; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = DingDongBaby/SplashScreen.storyboard; sourceTree = "<group>"; };
+		B4BC707302874174B4BF8FB8 /* CameraFilled.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = CameraFilled.js; path = ../src/assets/svgs/CameraFilled.js; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		C4B12E73AC324DCA989D9AC7 /* XClose.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = XClose.js; path = ../src/assets/svgs/XClose.js; sourceTree = "<group>"; };
+		C7CBC4837C6042ED874E420A /* ChevronLeft.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = ChevronLeft.js; path = ../src/assets/svgs/ChevronLeft.js; sourceTree = "<group>"; };
+		D482820F0EE94840AA472408 /* Camera.js */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Camera.js; path = ../src/assets/svgs/Camera.js; sourceTree = "<group>"; };
+		DD1076965B894EBFA1A26F4B /* monk1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = monk1.png; path = ../src/assets/placeholders/monk1.png; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-DingDongBaby/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		FCEC487538314DB7B662968D /* monk4.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = monk4.png; path = ../src/assets/placeholders/monk4.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +101,33 @@
 			name = DingDongBaby;
 			sourceTree = "<group>";
 		};
+		2AAA8F459C744E24BC9E8418 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A538A264AC7C48CEB90E791A /* AppBackground.png */,
+				730F93468F6F4C5BA95F983A /* Gradient.png */,
+				DD1076965B894EBFA1A26F4B /* monk1.png */,
+				35CA25D431064A3893212A7B /* monk2.png */,
+				816E3630D6BC4AEAA9F33A1D /* monk3.png */,
+				FCEC487538314DB7B662968D /* monk4.png */,
+				3C3EE88DE9AE4883A1E1AE65 /* projectile.png */,
+				444247649B26422DBDD77111 /* Album.js */,
+				19C180E459FB4D6F90E19905 /* AlbumFilled.js */,
+				4AB629ABAC154A19BB0D68A1 /* Alert.js */,
+				D482820F0EE94840AA472408 /* Camera.js */,
+				B4BC707302874174B4BF8FB8 /* CameraFilled.js */,
+				8A48728CD1934D62B56F3546 /* Checkmark.js */,
+				C7CBC4837C6042ED874E420A /* ChevronLeft.js */,
+				1172C091097E4143B6E4BC83 /* Lightbulb.js */,
+				2828E1E330C048AE83A21C74 /* Locked.js */,
+				46DAADDAAB944DCFB382EFAB /* Star.js */,
+				C4B12E73AC324DCA989D9AC7 /* XClose.js */,
+				895C12EEA04642C1B4B169A4 /* settingsBaby.js */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +153,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
+				2AAA8F459C744E24BC9E8418 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -199,6 +265,25 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
+				792CE04E171E462A91FD364B /* AppBackground.png in Resources */,
+				A05AC55F1A9E4612952D832A /* Gradient.png in Resources */,
+				A9F32A2602D34F8DBCEF7774 /* monk1.png in Resources */,
+				3D58AF737642469BA0619FE7 /* monk2.png in Resources */,
+				F0AB11A9BA2D454C901028B2 /* monk3.png in Resources */,
+				1C6620B7AFC1412786BBE24B /* monk4.png in Resources */,
+				8A49EAA501994E9884299962 /* projectile.png in Resources */,
+				69A5E395B2CB4913A925D32E /* Album.js in Resources */,
+				68491443F76943D690CABE19 /* AlbumFilled.js in Resources */,
+				1F17B005FB634791B41911C8 /* Alert.js in Resources */,
+				4292E4B3BBD8463C8136867D /* Camera.js in Resources */,
+				D373ADE5C05743B9AD33ABE3 /* CameraFilled.js in Resources */,
+				1F887B4FE02345C49AD5285B /* Checkmark.js in Resources */,
+				3CB77EE5620540E2B5ED93BD /* ChevronLeft.js in Resources */,
+				C90136422B33453EB86558E4 /* Lightbulb.js in Resources */,
+				12C29887047F4471A6A7FE7A /* Locked.js in Resources */,
+				D5D01A9493954C378BC68B30 /* Star.js in Resources */,
+				3CAEE7AC564447B786D7A1CE /* XClose.js in Resources */,
+				C7DAF6C50E294D1F851450C5 /* settingsBaby.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
