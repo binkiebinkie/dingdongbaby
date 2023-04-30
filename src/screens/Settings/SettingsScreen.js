@@ -16,7 +16,7 @@ function SettingsScreen({ theme }) {
   return (
     <AppBackground>
       <View style={styles.headerContainer}>
-        <HeaderCloseBar copy="profile" navigateTo="Home" />
+        <HeaderCloseBar copy={t("settings/title")} navigateTo="Home" />
         <UpsellContainer />
       </View>
       <View style={styles.settingsContainer}>
@@ -41,6 +41,7 @@ function SettingsScreen({ theme }) {
 const styles = StyleSheet.create({
   headerContainer: {
     padding: 16,
+    paddingTop: 0,
   },
   gradientButtonContainer: {
     width: "100%",

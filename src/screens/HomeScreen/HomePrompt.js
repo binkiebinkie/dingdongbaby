@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, View, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AppContext from "../../state/AppContext";
 import PromptDetails from "../../components/PromptDetails";
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: theme.colors.PureWhite,
     padding: 12,
-    marginBottom: 4,
+    marginBottom: 8,
   }),
 });
 

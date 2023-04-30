@@ -10,11 +10,31 @@ import SettingsScreen from "./SettingsScreen";
 const Stack = createStackNavigator();
 const SettingsNavigator = () => (
   <Stack.Navigator initialRouteName="Settings">
-    <Stack.Screen name="Settings" component={SettingsScreen} />
-    <Stack.Screen name="Login" component={Login} />
-    <Stack.Screen name="Babies" component={Babies} />
-    <Stack.Screen name="Sharing" component={Sharing} />
-    <Stack.Screen name="Language" component={Language} />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="Settings"
+      component={SettingsScreen}
+    />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="Login"
+      component={Login}
+    />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="Babies"
+      component={Babies}
+    />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="Sharing"
+      component={Sharing}
+    />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="Language"
+      component={Language}
+    />
   </Stack.Navigator>
 );
 

@@ -11,49 +11,47 @@ import NavigationButtons from "./NavigationButtons";
 import { withTheme } from "react-native-elements";
 
 const AppBackground = ({ theme, children, hasNavigationButtons }) => (
-  <SafeAreaView style={styles.safeArea(theme)}>
-    <ImageBackground
-      source={require("../assets/AppBackground.png")}
+  <ImageBackground
+    source={require("../assets/AppBackground.png")}
+    style={{
+      height: "100%",
+      width: "100%",
+    }}
+  >
+    <SafeAreaView style={styles.safeArea(theme)}></SafeAreaView>
+    <View
       style={[
         styles.scroll,
         {
-          resizeMode: "cover",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
+          maxWidth: 768,
+          width: "100%",
+          paddingBottom: 64,
         },
       ]}
     >
-      <View style={[styles.scroll, { maxWidth: 768, width: "100%" }]}>
-        <ScrollView
-          style={[styles.scroll]}
-          contentContainerStyle={{ flexGrow: 1 }}
-        >
-          <View style={{ flex: 1 }}>
-            <Spacer width={"100%"} height={32} />
-            {children}
-          </View>
-        </ScrollView>
-      </View>
-      {hasNavigationButtons ? <NavigationButtons /> : []}
-    </ImageBackground>
-  </SafeAreaView>
+      <ScrollView
+        style={[styles.scroll]}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <View style={{ flex: 1 }}>
+          <Spacer width="100%" height={8} />
+          {children}
+        </View>
+      </ScrollView>
+    </View>
+    {hasNavigationButtons ? <NavigationButtons /> : []}
+  </ImageBackground>
 );
 
 const styles = StyleSheet.create({
   safeArea: (theme) => ({
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: theme.colors.BGBeige,
-    minHeight: "100%",
-    minWidth: "100%",
-    justifyContent: "center",
+    flex: 0,
+    backgroundColor: "rgba(0,0,0,0)",
+    paddingBottom: 0,
   }),
   scroll: {
     flexDirection: "column",
-    // flex: 1,
     height: "100%",
-    marginBottom: 32,
   },
 });
 

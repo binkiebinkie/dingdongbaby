@@ -16,15 +16,6 @@ const HomeScreen = ({ navigation, theme }) => {
   const { selectedHomeScreen } = useContext(AppContext);
   const { allPromptsCount, unlockedPrompts } = usePrompts();
 
-  // const [unlockedPrompts, setUnlockedPrompts] = useState([]);
-  // useEffect(() => {
-  //   console.log("changed!!");
-  //   if (userState?.unlockedPromptIds) {
-  //     setUnlockedPrompts();
-  //   }
-  // }, [userState.unlockedPromptIds]);
-  // const unlockedPrompts = getUnlockedPrompts(userState?.unlockedPromptIds);
-
   return (
     <AppBackground hasNavigationButtons={true}>
       <View>
@@ -61,7 +52,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 16,
     width: "100%",
     padding: 16,
-    backgroundColor: "#E0DDD7",
+    backgroundColor: theme.colors.Beige2,
   }),
 });
 

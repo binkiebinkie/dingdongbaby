@@ -20,8 +20,6 @@ function IntroScreen({ navigation }) {
   const { addRandomPromptToUser } = usePrompts();
 
   const navigateHome = async () => {
-    console.log("pressed");
-
     try {
       await changeUserOnboarding({ viewedIntro: true });
       if (userState?.unlockedPromptIds?.length === 0) {

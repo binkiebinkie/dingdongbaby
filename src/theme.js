@@ -3,15 +3,14 @@ export default {
     shadowColor: "rgb(203, 189, 183)",
     shadowOffset: {
       width: 0,
-      height: 12
+      height: 12,
     },
     shadowOpacity: 0.4,
     shadowRadius: 80,
-    elevation: 21
+    elevation: 21,
   },
   colors: {
     primary: "#EAE6E1",
-    Beige1: "#EAE6E1",
     BGBeige: "#F6F3EF",
     PureWhite: "#FFF",
     PureBlack: "#000",
@@ -57,7 +56,10 @@ export default {
       "#FAECCD",
       "#DFF3E9",
       "#B0E2F9",
-      "#7CA6EC"
-    ]
-  }
+      "#7CA6EC",
+    ],
+
+    Beige1: "#EAE6E1",
+    Beige2: "F4F2EE",
+  },
 };

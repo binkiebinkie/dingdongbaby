@@ -1,12 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  Image,
-  Platform,
-} from "react-native";
+import { StyleSheet, View, Text, Pressable, Image } from "react-native";
 import Share from "react-native-share";
 import { withTheme } from "react-native-elements";
 import AppContext from "../state/AppContext";
@@ -31,23 +24,13 @@ function PromptScreen({ navigation, theme }) {
   const { userState } = useContext(UserContext);
   const [image, setImage] = useState({});
   const [completedPrompt, setCompletedPrompt] = useState({});
-  const { selectedPrompt, setSelectedPrompt } = useContext(AppContext);
-  const { unlockedPromptIds } = userState;
+  const { selectedPrompt } = useContext(AppContext);
   const { desc, warning, tip, id, captions } = selectedPrompt;
 
-  const promptIndex = unlockedPromptIds?.findIndex((p) => p === id);
-
-  // const navigateToPrompt = (indexChange) => {
-  //   const otherPrompt = unlockedPromptIds[promptIndex + indexChange];
-  //   if (otherPrompt) {
-  //     setSelectedPrompt(otherPrompt);
-  //   }
-  // };
   const fetchPromptAndImageInfo = async () => {
     if (id) {
       setImage(await getSelectedAssetByPromptId(id));
       const completedPrompt = await getCompletedPromptByPromptId(id);
-      console.log("completedPromptcompletedPrompt", completedPrompt);
       setCompletedPrompt({ ...completedPrompt });
     }
   };
@@ -58,7 +41,6 @@ function PromptScreen({ navigation, theme }) {
     fetchPromptAndImageInfo();
   }, []);
   const shareDisabled = !image || !completedPrompt?.caption;
-  console.log(image);
   return (
     <AppBackground>
       <View style={styles.cont}>
@@ -79,12 +61,10 @@ function PromptScreen({ navigation, theme }) {
                   const shareOptions = {
                     title: "Share on Instagram",
                     message,
-                    url: image?.uri, // URL of the image (local or remote)
-                    // social: Share.Social.INSTAGRAM,
+                    url: image?.uri,
                   };
 
                   const res = await Share.open(shareOptions);
-                  console.log(res);
                 } catch (err) {
                   console.error(err);
                 }

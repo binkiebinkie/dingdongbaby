@@ -5,17 +5,15 @@ import { withTheme } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import useTranslation from "../../hooks/translations";
 import GreyFont from "../../components/styleComponents/GreyFont";
+import ChevronLeft from "../../assets/svgs/ChevronLeft";
 
 const SettingContainer = ({ theme, setting }) => {
   const { title, settings } = setting;
-  // const { setSelectedSetting } = useContext(SettingsContext);
   const navigation = useNavigation();
   const { t } = useTranslation();
   const navigateToSetting = (setting) => {
     navigation.navigate(setting);
   };
-  console.log(title);
-  console.log(settings);
   return (
     <View style={styles.cont}>
       <GreyFont>{t(title)}</GreyFont>
@@ -26,6 +24,7 @@ const SettingContainer = ({ theme, setting }) => {
           style={styles.setting(theme)}
         >
           <Text style={styles.settingTitle(theme)}>{t(s.title)}</Text>
+          <ChevronLeft style={styles.settingChevron(theme)} />
         </Pressable>
       ))}
     </View>
@@ -64,6 +63,11 @@ const styles = StyleSheet.create({
     color: theme.colors.G9,
     fontSize: 16,
     letterSpacing: 0.36,
+    flex: 1,
+  }),
+  settingChevron: (theme) => ({
+    color: theme.colors.G9,
+    transform: [{ rotate: "180deg" }],
   }),
 });
 

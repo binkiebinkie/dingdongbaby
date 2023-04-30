@@ -101,48 +101,46 @@ const DingDongBaby = () => {
             <SettingsContext.Provider
               value={{ selectedSetting, setSelectedSetting, allSettings }}
             >
-              <SafeAreaView style={styles.container(theme)}>
-                <>
-                  {!fontLoaded || !userState?._id ? (
-                    <Text>Loading</Text>
-                  ) : (
-                    <Stack.Navigator
-                      initialRouteName={
-                        !userState?.onboarding?.viewedIntro ? "Intro" : "Home"
-                      }
-                    >
-                      {!userState?.onboarding?.viewedIntro && (
-                        <Stack.Screen
-                          name="Intro"
-                          component={IntroScreen}
-                          options={{ headerShown: false }}
-                        />
-                      )}
+              <>
+                {!fontLoaded || !userState?._id ? (
+                  <Text>Loading</Text>
+                ) : (
+                  <Stack.Navigator
+                    initialRouteName={
+                      !userState?.onboarding?.viewedIntro ? "Intro" : "Home"
+                    }
+                  >
+                    {!userState?.onboarding?.viewedIntro && (
                       <Stack.Screen
-                        name="Home"
-                        component={HomeScreen}
+                        name="Intro"
+                        component={IntroScreen}
                         options={{ headerShown: false }}
                       />
-                      <Stack.Screen
-                        name="Prompt"
-                        key={userState?.completedPrompts?.length}
-                        component={PromptScreen}
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="Captions"
-                        component={CaptionsScreen}
-                        options={{ headerShown: false }}
-                      />
-                      <Stack.Screen
-                        name="SettingsNavigator"
-                        component={SettingsNavigator}
-                        options={{ headerShown: false }}
-                      />
-                    </Stack.Navigator>
-                  )}
-                </>
-              </SafeAreaView>
+                    )}
+                    <Stack.Screen
+                      name="Home"
+                      component={HomeScreen}
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="Prompt"
+                      key={userState?.completedPrompts?.length}
+                      component={PromptScreen}
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="Captions"
+                      component={CaptionsScreen}
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="SettingsNavigator"
+                      component={SettingsNavigator}
+                      options={{ headerShown: false }}
+                    />
+                  </Stack.Navigator>
+                )}
+              </>
             </SettingsContext.Provider>
           </UserContext.Provider>
         </AppContext.Provider>

@@ -4,30 +4,10 @@ import AppBackground from "../../components/AppBackground";
 import { withTheme } from "react-native-elements";
 import SettingsContext from "../../state/SettingsContext";
 import HeaderCloseBar from "../../components/HeaderCloseBar";
-import useUser from "../../hooks/user";
 
 const SettingScreen = ({ theme, children }) => {
   const { selectedSetting } = useContext(SettingsContext);
-  const { user, updateUserKeyValue } = useUser();
-  const { inputs } = selectedSetting;
 
-  // const renderInput = (input) => {
-  //   const { type, name, keyboard } = input;
-  //   if (type === "text") {
-  //     let keyboardType = "default";
-  //     if (!!keyboard) keyboardType = keyboard;
-  //     return (
-  //       <TextInput
-  //         style={styles.textInput(theme)}
-  //         key={name}
-  //         name={name}
-  //         onChange={(e) => updateUserSetting(name, e.nativeEvent.text)}
-  //         value={user[name]}
-  //         keyboardType={keyboardType}
-  //       />
-  //     );
-  //   }
-  // };
   return (
     <AppBackground>
       <View style={styles.headerCont}>
@@ -42,6 +22,7 @@ const SettingScreen = ({ theme, children }) => {
 const styles = StyleSheet.create({
   headerCont: {
     padding: 16,
+    paddingTop: 8,
   },
   textInput: (theme) => ({
     width: "100%",

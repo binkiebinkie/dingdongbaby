@@ -13,14 +13,12 @@ import SettingScreen from "./SettingScreen";
 
 function Login({ theme }) {
   const { t } = useTranslation();
-  const { updateCredentials } = useUser();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
   const { userState } = useContext(UserContext);
-  console.log(userState);
 
   useEffect(() => {
     const { email } = userState;
@@ -37,8 +35,6 @@ function Login({ theme }) {
       await updateUserCredentials(credentials);
     } catch (err) {
       console.error(err);
-      console.log(err?.response);
-      console.log(err?.response?.data);
       if (err.response) {
         setErrors(err.response?.data);
       }
@@ -66,7 +62,6 @@ function Login({ theme }) {
         {!!errors?.email && <ErrorFont>{t(errors.email)}</ErrorFont>}
         <GreyFont>{t("password")}</GreyFont>
         <TextInput
-          //   secureTextEntry={true}
           style={[styles.textInput(theme), { marginBottom: 16 }]}
           key="password"
           name="password"

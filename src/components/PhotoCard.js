@@ -98,7 +98,7 @@ function PhotoCard({ image, completedPrompt, theme, containerStyles }) {
           style={[
             styles.image,
             {
-              width: contWidth || "100%",
+              width: "100%",
               height: imageHeight || undefined,
             },
           ]}

@@ -1,11 +1,18 @@
 import React, { Fragment, useContext } from "react";
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Pressable,
+  ImageBackground,
+} from "react-native";
 import Star from "../assets/svgs/Star";
 import Spacer from "./styleComponents/Spacer";
-import { helpers } from "../helpers/helpers";
 import { withTheme } from "react-native-elements";
 import useUser from "../hooks/user";
 import UserContext from "../state/UserContext";
+import PromptId from "./styleComponents/PromptId";
 
 const PromptDetails = ({
   theme,
@@ -22,15 +29,14 @@ const PromptDetails = ({
     (pid) => Number(pid) === Number(id)
   );
 
+  const homeNotSelected = isHomePrompt && !selectedAsset?.uri;
   return (
     <Fragment key={`${name}${id}`}>
       <View style={styles.containerLeft(theme)}>
         <Text style={styles.name(theme)}>{name}</Text>
         <View style={styles.containerLeftDetails(theme)}>
           <View style={styles.favContainer(theme)}>
-            <Text style={styles.idText(theme)}>
-              {helpers.numberToThreeDigits(id)}
-            </Text>
+            <PromptId complete={!!selectedAsset?._id} id={id} />
             {!locked && (
               <Pressable
                 style={styles.fav(theme)}
@@ -79,7 +85,16 @@ const PromptDetails = ({
           )}
         </View>
       </View>
-      <View style={styles.containerRight(theme)}>
+      <View
+        style={[
+          styles.containerRight(theme),
+          {
+            padding: homeNotSelected ? 5 : 0,
+            paddingLeft: homeNotSelected ? 12 : 0,
+            paddingRight: homeNotSelected ? 12 : 0,
+          },
+        ]}
+      >
         {isHomePrompt && !!selectedAsset?.uri ? (
           <Image
             resizeMode="cover"
@@ -87,7 +102,13 @@ const PromptDetails = ({
             style={styles.photo}
           />
         ) : (
-          <Text style={styles.emoji}>{emoji}</Text>
+          <ImageBackground
+            style={styles.dotBackground}
+            source={require("../assets/PhotoDots.png")}
+            resizeMode="cover"
+          >
+            <Text style={styles.emoji}>{emoji}</Text>
+          </ImageBackground>
         )}
       </View>
     </Fragment>
@@ -123,8 +144,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     minHeight: 75,
     marginLeft: 8,
-    maxHeight: 75,
+    height: 75,
   }),
+  dotBackground: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   favContainer: (theme) => ({
     justifyContent: "flex-start",
     flexDirection: "row",
@@ -136,20 +164,24 @@ const styles = StyleSheet.create({
     textTransform: "lowercase",
   }),
   idText: (theme) => ({
-    backgroundColor: theme.colors.G2,
     color: theme.colors.G6,
     textAlignVertical: "center",
     fontSize: 12,
-    marginRight: 4,
+    borderRadius: 12,
+    lineHeight: 14,
+  }),
+  idTextContainer: (theme) => ({
+    backgroundColor: theme.colors.G2,
     paddingTop: 1,
     paddingBottom: 1,
     paddingRight: 4,
     paddingLeft: 4,
     borderRadius: 50,
+    marginRight: 8,
     height: 18,
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    lineHeight: 14,
   }),
   photo: {
     width: "100%",

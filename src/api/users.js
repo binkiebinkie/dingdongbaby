@@ -2,7 +2,7 @@ import { api } from ".";
 
 export const readMe = (params) => api.get(`users/me`, { params });
 export const createUser = (data) => api.post(`users/`, data);
-export const updateUser = (data) => api.patch(`user`, data);
+export const updateUser = (data) => api.patch(`users/`, data);
 export const deleteUser = (id) => api.delete(`users/${id}`);
 
 export const updateUserCompletedPrompt = (promptId, data) =>
